@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Type.fs" />
+    <Compile Include="SurfaceComparison.fsi" />
+    <Compile Include="SurfaceComparison.fs" />
+    <Compile Include="DocCoverage.fsi" />
+    <Compile Include="DocCoverage.fs" />
+    <Compile Include="ApiMember.fsi" />
+    <Compile Include="ApiMember.fs" />
+    <Compile Include="PublicType.fsi" />
+    <Compile Include="PublicType.fs" />
+    <Compile Include="Assembly.fs" />
+    <Compile Include="VersionFile.fs" />
+    <Compile Include="ApiSurface.fsi" />
+    <Compile Include="ApiSurface.fs" />
+    <Compile Include="MonotonicVersion.fsi" />
+    <Compile Include="MonotonicVersion.fs" />
+    <EmbeddedResource Include="SurfaceBaseline.txt" />
+    <EmbeddedResource Include="version.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FSharp.Core" Version="4.3.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NuGet.Packaging" Version="5.11.2" />
+    <PackageReference Include="NuGet.Protocol" Version="5.6.0" />
+    <PackageReference Include="System.IO.Abstractions" Version="4.2.13" />
+  </ItemGroup>
+</Project>

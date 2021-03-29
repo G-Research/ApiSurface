@@ -1,0 +1,53 @@
+﻿ApiSurface.SampleAssembly.Class1 inherit obj
+ApiSurface.SampleAssembly.Class1..ctor [constructor]: int
+ApiSurface.SampleAssembly.Class1.AddTwo [method]: int -> int
+ApiSurface.SampleAssembly.Class1.get_X [method]: unit -> string
+ApiSurface.SampleAssembly.Class1.get_Y [method]: unit -> string
+ApiSurface.SampleAssembly.Class1.set_Y [method]: string -> unit
+ApiSurface.SampleAssembly.Class1.X [property]: [read-only] string
+ApiSurface.SampleAssembly.Class1.Y [property]: string
+ApiSurface.SampleAssembly.InterfaceInheriter, implements ApiSurface.SampleAssembly.SampleInterface - interface with 1 member(s)
+ApiSurface.SampleAssembly.InterfaceInheriter.AnotherMethod [method]: unit -> int
+ApiSurface.SampleAssembly.Module1 inherit obj
+ApiSurface.SampleAssembly.Module1+Nested inherit obj
+ApiSurface.SampleAssembly.Module1+Nested.foo [static property]: [read-only] int
+ApiSurface.SampleAssembly.Module1+Nested.get_foo [static method]: unit -> int
+ApiSurface.SampleAssembly.Module1.get_publicAnonymousRecord [static method]: unit -> int <>f__AnonymousType2979025518
+ApiSurface.SampleAssembly.Module1.publicAnonymousRecord [static property]: [read-only] int <>f__AnonymousType2979025518
+ApiSurface.SampleAssembly.Module1.publicArgumentCurry [static method]: int -> int -> int
+ApiSurface.SampleAssembly.Module1.publicArgumentFunction [static method]: (int -> int) -> int
+ApiSurface.SampleAssembly.Module1.publicArgumentFunctionTuple [static method]: (int, int -> int) -> int
+ApiSurface.SampleAssembly.Module1.publicArgumentPartial [static method]: int -> (int -> int)
+ApiSurface.SampleAssembly.Module1.publicArgumentTupleExplicit [static method]: (int, int) -> int
+ApiSurface.SampleAssembly.Module1.publicArgumentTupleImplicit [static method]: (int, int) -> int
+ApiSurface.SampleAssembly.Module1.publicFunction [static method]: unit -> unit
+ApiSurface.SampleAssembly.Module1.someEmptyLiteral [static field]: string
+ApiSurface.SampleAssembly.Module1.someLiteral [static field]: int = 15
+ApiSurface.SampleAssembly.Module1.typeConstrainedMethodNested [static method]: #(int seq) list -> unit
+ApiSurface.SampleAssembly.Module1.typeConstrainedMethodSimple [static method]: #(int seq) -> unit
+ApiSurface.SampleAssembly.SampleDU inherit obj, implements ApiSurface.SampleAssembly.SampleDU System.IEquatable, System.Collections.IStructuralEquatable, ApiSurface.SampleAssembly.SampleDU System.IComparable, System.IComparable, System.Collections.IStructuralComparable - union type with 2 cases
+ApiSurface.SampleAssembly.SampleDU+Bar inherit ApiSurface.SampleAssembly.SampleDU
+ApiSurface.SampleAssembly.SampleDU+Bar.get_Item [method]: unit -> int
+ApiSurface.SampleAssembly.SampleDU+Bar.Item [property]: [read-only] int
+ApiSurface.SampleAssembly.SampleDU+Tags inherit obj
+ApiSurface.SampleAssembly.SampleDU+Tags.Bar [static field]: int = 1
+ApiSurface.SampleAssembly.SampleDU+Tags.Foo [static field]: int = 0
+ApiSurface.SampleAssembly.SampleDU.Foo [static property]: [read-only] ApiSurface.SampleAssembly.SampleDU
+ApiSurface.SampleAssembly.SampleDU.get_Foo [static method]: unit -> ApiSurface.SampleAssembly.SampleDU
+ApiSurface.SampleAssembly.SampleDU.get_IsBar [method]: unit -> bool
+ApiSurface.SampleAssembly.SampleDU.get_IsFoo [method]: unit -> bool
+ApiSurface.SampleAssembly.SampleDU.get_Tag [method]: unit -> int
+ApiSurface.SampleAssembly.SampleDU.IsBar [property]: [read-only] bool
+ApiSurface.SampleAssembly.SampleDU.IsFoo [property]: [read-only] bool
+ApiSurface.SampleAssembly.SampleDU.NewBar [static method]: int -> ApiSurface.SampleAssembly.SampleDU
+ApiSurface.SampleAssembly.SampleDU.Tag [property]: [read-only] int
+ApiSurface.SampleAssembly.SampleInterface - interface with 4 member(s)
+ApiSurface.SampleAssembly.SampleInterface.get_InterfaceProperty [method]: unit -> int
+ApiSurface.SampleAssembly.SampleInterface.ImplementMe [method]: unit -> unit
+ApiSurface.SampleAssembly.SampleInterface.InterfaceProperty [property]: int
+ApiSurface.SampleAssembly.SampleInterface.set_InterfaceProperty [method]: int -> unit
+ApiSurface.SampleAssembly.ValueTupleOperations inherit obj
+ApiSurface.SampleAssembly.ValueTupleOperations.fst [static method]: struct ('a * 'b) -> 'a
+
+Foo
+Bar

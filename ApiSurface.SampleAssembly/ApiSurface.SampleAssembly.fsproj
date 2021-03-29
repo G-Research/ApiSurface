@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IsPublishable>false</IsPublishable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Library1.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SurfaceBaseline.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <!--
+    This is not necessary in user code, since FSharp.Core maintains backward compatibility.
+    But since this project builds ApiSurface from source, we fix the FSharp.Core version.
+    -->
+    <PackageReference Include="FSharp.Core" Version="4.3.4" />
+  </ItemGroup>
+</Project>

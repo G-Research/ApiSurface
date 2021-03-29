@@ -1,0 +1,112 @@
+ApiSurface.ApiMember inherit obj, implements ApiSurface.ApiMember System.IEquatable, System.Collections.IStructuralEquatable
+ApiSurface.ApiMember..ctor [constructor]: (string, ApiSurface.MemberTypeInfo, System.Type, bool)
+ApiSurface.ApiMember.DeclaringType [property]: [read-only] System.Type
+ApiSurface.ApiMember.get_DeclaringType [method]: unit -> System.Type
+ApiSurface.ApiMember.get_IsStatic [method]: unit -> bool
+ApiSurface.ApiMember.get_MemberTypeInfo [method]: unit -> ApiSurface.MemberTypeInfo
+ApiSurface.ApiMember.get_Name [method]: unit -> string
+ApiSurface.ApiMember.IsStatic [property]: [read-only] bool
+ApiSurface.ApiMember.MemberTypeInfo [property]: [read-only] ApiSurface.MemberTypeInfo
+ApiSurface.ApiMember.Name [property]: [read-only] string
+ApiSurface.ApiMemberModule inherit obj
+ApiSurface.ApiMemberModule.FromMemberInfo [static method]: System.Reflection.MemberInfo -> ApiSurface.ApiMember
+ApiSurface.ApiMemberModule.Print [static method]: ApiSurface.ApiMember -> string
+ApiSurface.ApiSurface inherit obj, implements ApiSurface.ApiSurface System.IEquatable, System.Collections.IStructuralEquatable, ApiSurface.ApiSurface System.IComparable, System.IComparable, System.Collections.IStructuralComparable
+ApiSurface.ApiSurfaceModule inherit obj
+ApiSurface.ApiSurfaceModule.AssertIdentical [static method]: System.Reflection.Assembly -> unit
+ApiSurface.ApiSurfaceModule.Compare [static method]: ApiSurface.ApiSurface -> ApiSurface.ApiSurface -> ApiSurface.SurfaceComparison
+ApiSurface.ApiSurfaceModule.FromAssembly [static method]: System.Reflection.Assembly -> ApiSurface.ApiSurface
+ApiSurface.ApiSurfaceModule.FromAssemblyBaseline [static method]: System.Reflection.Assembly -> ApiSurface.ApiSurface
+ApiSurface.ApiSurfaceModule.FromAssemblyBaselineWithExplicitResourceName [static method]: string -> System.Reflection.Assembly -> ApiSurface.ApiSurface
+ApiSurface.ApiSurfaceModule.FromAssemblyCustomPrint [static method]: (ApiSurface.PublicType -> string list) -> System.Reflection.Assembly -> ApiSurface.ApiSurface
+ApiSurface.ApiSurfaceModule.ToString [static method]: ApiSurface.ApiSurface -> string
+ApiSurface.ApiSurfaceModule.WriteAssemblyBaseline [static method]: System.Reflection.Assembly -> unit
+ApiSurface.ApiSurfaceModule.WriteAssemblyBaselineWithDirectory [static method]: string -> System.Reflection.Assembly -> unit
+ApiSurface.DocCoverage inherit obj, implements ApiSurface.DocCoverage System.IEquatable, System.Collections.IStructuralEquatable, ApiSurface.DocCoverage System.IComparable, System.IComparable, System.Collections.IStructuralComparable
+ApiSurface.DocCoverageModule inherit obj
+ApiSurface.DocCoverageModule.AssertFullyDocumented [static method]: System.Reflection.Assembly -> unit
+ApiSurface.DocCoverageModule.Compare [static method]: ApiSurface.DocCoverage -> ApiSurface.DocCoverage -> ApiSurface.SurfaceComparison
+ApiSurface.DocCoverageModule.FromAssemblySurface [static method]: System.Reflection.Assembly -> ApiSurface.DocCoverage
+ApiSurface.DocCoverageModule.FromAssemblyXml [static method]: System.Reflection.Assembly -> ApiSurface.DocCoverage
+ApiSurface.DocCoverageModule.FromXml [static method]: string -> string -> ApiSurface.DocCoverage
+ApiSurface.DocCoverageModule.ToString [static method]: ApiSurface.DocCoverage -> string
+ApiSurface.MemberTypeInfo inherit obj, implements ApiSurface.MemberTypeInfo System.IEquatable, System.Collections.IStructuralEquatable - union type with 5 cases
+ApiSurface.MemberTypeInfo+Constructor inherit ApiSurface.MemberTypeInfo
+ApiSurface.MemberTypeInfo+Constructor.get_parameters [method]: unit -> System.Type list
+ApiSurface.MemberTypeInfo+Constructor.parameters [property]: [read-only] System.Type list
+ApiSurface.MemberTypeInfo+Field inherit ApiSurface.MemberTypeInfo
+ApiSurface.MemberTypeInfo+Field.fieldInfo [property]: [read-only] System.Reflection.FieldInfo
+ApiSurface.MemberTypeInfo+Field.fieldType [property]: [read-only] System.Type
+ApiSurface.MemberTypeInfo+Field.get_fieldInfo [method]: unit -> System.Reflection.FieldInfo
+ApiSurface.MemberTypeInfo+Field.get_fieldType [method]: unit -> System.Type
+ApiSurface.MemberTypeInfo+Method inherit ApiSurface.MemberTypeInfo
+ApiSurface.MemberTypeInfo+Method.get_parameters [method]: unit -> System.Type list list
+ApiSurface.MemberTypeInfo+Method.get_returns [method]: unit -> System.Type
+ApiSurface.MemberTypeInfo+Method.parameters [property]: [read-only] System.Type list list
+ApiSurface.MemberTypeInfo+Method.returns [property]: [read-only] System.Type
+ApiSurface.MemberTypeInfo+Property inherit ApiSurface.MemberTypeInfo
+ApiSurface.MemberTypeInfo+Property.get_propertyType [method]: unit -> System.Type
+ApiSurface.MemberTypeInfo+Property.get_readonly [method]: unit -> bool
+ApiSurface.MemberTypeInfo+Property.propertyType [property]: [read-only] System.Type
+ApiSurface.MemberTypeInfo+Property.readonly [property]: [read-only] bool
+ApiSurface.MemberTypeInfo+Tags inherit obj
+ApiSurface.MemberTypeInfo+Tags.Constructor [static field]: int = 0
+ApiSurface.MemberTypeInfo+Tags.Event [static field]: int = 4
+ApiSurface.MemberTypeInfo+Tags.Field [static field]: int = 3
+ApiSurface.MemberTypeInfo+Tags.Method [static field]: int = 1
+ApiSurface.MemberTypeInfo+Tags.Property [static field]: int = 2
+ApiSurface.MemberTypeInfo.Event [static property]: [read-only] ApiSurface.MemberTypeInfo
+ApiSurface.MemberTypeInfo.get_Event [static method]: unit -> ApiSurface.MemberTypeInfo
+ApiSurface.MemberTypeInfo.get_IsConstructor [method]: unit -> bool
+ApiSurface.MemberTypeInfo.get_IsEvent [method]: unit -> bool
+ApiSurface.MemberTypeInfo.get_IsField [method]: unit -> bool
+ApiSurface.MemberTypeInfo.get_IsMethod [method]: unit -> bool
+ApiSurface.MemberTypeInfo.get_IsProperty [method]: unit -> bool
+ApiSurface.MemberTypeInfo.get_Tag [method]: unit -> int
+ApiSurface.MemberTypeInfo.IsConstructor [property]: [read-only] bool
+ApiSurface.MemberTypeInfo.IsEvent [property]: [read-only] bool
+ApiSurface.MemberTypeInfo.IsField [property]: [read-only] bool
+ApiSurface.MemberTypeInfo.IsMethod [property]: [read-only] bool
+ApiSurface.MemberTypeInfo.IsProperty [property]: [read-only] bool
+ApiSurface.MemberTypeInfo.NewConstructor [static method]: System.Type list -> ApiSurface.MemberTypeInfo
+ApiSurface.MemberTypeInfo.NewField [static method]: (System.Type, System.Reflection.FieldInfo) -> ApiSurface.MemberTypeInfo
+ApiSurface.MemberTypeInfo.NewMethod [static method]: (System.Type list list, System.Type) -> ApiSurface.MemberTypeInfo
+ApiSurface.MemberTypeInfo.NewProperty [static method]: (System.Type, bool) -> ApiSurface.MemberTypeInfo
+ApiSurface.MemberTypeInfo.Tag [property]: [read-only] int
+ApiSurface.MonotonicVersion inherit obj
+ApiSurface.MonotonicVersion.Validate [static method]: System.Reflection.Assembly -> string -> unit
+ApiSurface.MonotonicVersion.ValidateResource [static method]: string -> System.Reflection.Assembly -> string -> unit
+ApiSurface.PublicType inherit obj, implements ApiSurface.PublicType System.IEquatable, System.Collections.IStructuralEquatable
+ApiSurface.PublicType..ctor [constructor]: (string, System.Type option, System.Type list, ApiSurface.ApiMember list, System.Type)
+ApiSurface.PublicType.BaseClass [property]: [read-only] System.Type option
+ApiSurface.PublicType.FullName [property]: [read-only] string
+ApiSurface.PublicType.get_BaseClass [method]: unit -> System.Type option
+ApiSurface.PublicType.get_FullName [method]: unit -> string
+ApiSurface.PublicType.get_Interfaces [method]: unit -> System.Type list
+ApiSurface.PublicType.get_Members [method]: unit -> ApiSurface.ApiMember list
+ApiSurface.PublicType.get_UnderlyingType [method]: unit -> System.Type
+ApiSurface.PublicType.Interfaces [property]: [read-only] System.Type list
+ApiSurface.PublicType.Members [property]: [read-only] ApiSurface.ApiMember list
+ApiSurface.PublicType.UnderlyingType [property]: [read-only] System.Type
+ApiSurface.PublicTypeModule inherit obj
+ApiSurface.PublicTypeModule.FromType [static method]: System.Type -> ApiSurface.PublicType
+ApiSurface.PublicTypeModule.Print [static method]: ApiSurface.PublicType -> string list
+ApiSurface.SurfaceComparison inherit obj, implements ApiSurface.SurfaceComparison System.IEquatable, System.Collections.IStructuralEquatable, ApiSurface.SurfaceComparison System.IComparable, System.IComparable, System.Collections.IStructuralComparable
+ApiSurface.SurfaceComparisonModule inherit obj
+ApiSurface.SurfaceComparisonModule.AddedSymbols [static method]: ApiSurface.SurfaceComparison -> string list
+ApiSurface.SurfaceComparisonModule.AssertIdentical [static method]: ApiSurface.SurfaceComparison -> unit
+ApiSurface.SurfaceComparisonModule.AssertNoneRemoved [static method]: bool -> ApiSurface.SurfaceComparison -> unit
+ApiSurface.SurfaceComparisonModule.RemovedSymbols [static method]: ApiSurface.SurfaceComparison -> string list
+ApiSurface.VersionFile inherit obj, implements ApiSurface.VersionFile System.IEquatable, System.Collections.IStructuralEquatable, ApiSurface.VersionFile System.IComparable, System.IComparable, System.Collections.IStructuralComparable
+ApiSurface.VersionFile..ctor [constructor]: (string, string list, string list)
+ApiSurface.VersionFile.get_PathFilters [method]: unit -> string list
+ApiSurface.VersionFile.get_PublicReleaseRefSpec [method]: unit -> string list
+ApiSurface.VersionFile.get_Version [method]: unit -> string
+ApiSurface.VersionFile.PathFilters [property]: [read-only] string list
+ApiSurface.VersionFile.PublicReleaseRefSpec [property]: [read-only] string list
+ApiSurface.VersionFile.Version [property]: [read-only] string
+ApiSurface.VersionFileModule inherit obj
+ApiSurface.VersionFileModule.findVersionFiles [static method]: System.IO.Abstractions.IFileSystem -> System.Reflection.Assembly -> System.IO.Abstractions.IFileInfo list
+ApiSurface.VersionFileModule.findVersionFilesWithDirectory [static method]: System.IO.Abstractions.IFileSystem -> string -> System.Reflection.Assembly -> System.IO.Abstractions.IFileInfo list
+ApiSurface.VersionFileModule.read [static method]: System.IO.StreamReader -> ApiSurface.VersionFile
+ApiSurface.VersionFileModule.write [static method]: System.IO.StreamWriter -> ApiSurface.VersionFile -> unit
