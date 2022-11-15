@@ -19,6 +19,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # so that NerdBank.GitVersioning has access to history
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
