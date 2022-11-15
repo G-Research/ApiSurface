@@ -2,21 +2,22 @@ namespace ApiSurface
 
 open System.IO
 open System.IO.Abstractions
-open Newtonsoft.Json
+open System.Text.Json
+open System.Text.Json.Serialization
 open System.Reflection
 
 /// A record representing the layout of a version.json file, e.g. as consumed by NerdBank.GitVersioning.
 type VersionFile =
     {
         /// The version number (e.g. "1.0.1")
-        [<JsonProperty("version")>]
+        [<JsonPropertyName("version")>]
         Version : string
         /// The collection of Git references which are to be considered relevant to this package.
         /// For example, "^refs/heads/main$".
-        [<JsonProperty("publicReleaseRefSpec")>]
+        [<JsonPropertyName("publicReleaseRefSpec")>]
         PublicReleaseRefSpec : string list
         /// The collection of paths which are to be considered relevant to this package.
-        [<JsonProperty("pathFilters")>]
+        [<JsonPropertyName("pathFilters")>]
         PathFilters : string list
     }
 
@@ -25,11 +26,15 @@ module VersionFile =
 
     /// Read and parse a stream representing a version file.
     let read (reader : StreamReader) : VersionFile =
-        JsonConvert.DeserializeObject<VersionFile> (reader.ReadToEnd ())
+        let options =
+            JsonSerializerOptions (ReadCommentHandling = JsonCommentHandling.Skip, AllowTrailingCommas = true)
+
+        JsonSerializer.Deserialize<VersionFile> (reader.ReadToEnd (), options)
 
     /// Write a version file into a stream.
     let write (writer : StreamWriter) (versionFile : VersionFile) : unit =
-        JsonConvert.SerializeObject (versionFile, Formatting.Indented) |> writer.Write
+        let options = JsonSerializerOptions (WriteIndented = true)
+        JsonSerializer.Serialize (versionFile, options) |> writer.Write
 
     /// Find version.json files referenced within this assembly.
     let findVersionFiles (fs : IFileSystem) (assembly : Assembly) : IFileInfo list =
