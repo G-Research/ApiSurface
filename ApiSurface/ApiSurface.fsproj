@@ -31,7 +31,7 @@
     <Compile Include="MonotonicVersion.fs" />
     <EmbeddedResource Include="SurfaceBaseline.txt" />
     <EmbeddedResource Include="version.json" />
-    <None Include="../readme.md" Pack="true" PackagePath="/" />
+    <None Include="..\README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharp.Core" Version="4.3.4" />
