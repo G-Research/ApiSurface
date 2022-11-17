@@ -62,7 +62,8 @@ jobs:
     needs: [all-required-checks-complete]
     environment: release
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0 # so that NerdBank.GitVersioning has access to history
       - name: Setup .NET SDK v6.0.x
