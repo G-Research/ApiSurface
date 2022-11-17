@@ -2,6 +2,15 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>ApiSurface</PackageId>
+    <Authors>G-Research</Authors>
+    <Description>ApiSurface is a library to help you ensure consistency and documentation coverage of your NuGet package's public API, and to help you adhere to SemVer.</Description>
+    <Copyright>Copyright (c) G-Research 2022</Copyright>
+    <PackageReadmeFile>../README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/G-Research/ApiSurface</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageTags>semver;packaging;documentation;version</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
