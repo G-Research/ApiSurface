@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+
 jobs:
   build:
     strategy:
@@ -18,11 +22,11 @@ jobs:
     runs-on: ${{matrix.os}}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0 # so that NerdBank.GitVersioning has access to history
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
@@ -31,7 +35,23 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    - name: Prepare .NET tools
-      run: dotnet tool restore
-    - name: Run Fantomas
-      run: ./hooks/pre-push
+
+  check-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup .NET SDK v6.0.x
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name: Prepare .NET tools
+        run: dotnet tool restore
+      - name: Run Fantomas
+        run: ./hooks/pre-push
+
+  all-required-checks-complete:
+    needs: [check-format, build]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All required checks complete."
