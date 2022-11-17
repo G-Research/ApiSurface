@@ -58,6 +58,7 @@ jobs:
 
   nuget-publish:
     runs-on: ubuntu-latest
+    if: ${{ !github.event.repository.fork && github.ref == 'refs/heads/main' }}
     needs: [all-required-checks-complete]
     environment: release
     steps:
