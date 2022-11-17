@@ -52,5 +52,6 @@ jobs:
 
   all-required-checks-complete:
     needs: [check-format, build]
+    runs-on: ubuntu-latest
     steps:
       - run: echo "All required checks complete."
