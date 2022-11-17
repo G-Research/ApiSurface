@@ -1,5 +1,3 @@
 # See: https://help.github.com/articles/about-codeowners/
 
-* @GR-RQ/rqf @hbs-git-approver
-
-# If you are adding a new rule: note that @hbs-git-approver should be a code owner for anything, so that reverts can be done automatically.
+* @G-Research/rqf @G-Research/GR-OSS
