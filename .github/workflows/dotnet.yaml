@@ -50,7 +50,7 @@ jobs:
       - name: Run Fantomas
         run: ./hooks/pre-push
 
-  nuget-publish-dryrun:
+  nuget-pack:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -65,9 +65,14 @@ jobs:
         run: dotnet build ApiSurface/ApiSurface.fsproj --configuration Release
       - name: Pack
         run: dotnet pack ApiSurface/ApiSurface.fsproj --configuration Release
+      - name: Upload NuGet artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: nuget-package
+          path: ApiSurface/bin/Release/ApiSurface.*.nupkg
 
   all-required-checks-complete:
-    needs: [check-format, build, nuget-publish-dryrun]
+    needs: [check-format, build, nuget-pack]
     runs-on: ubuntu-latest
     steps:
       - run: echo "All required checks complete."
@@ -78,17 +83,9 @@ jobs:
     needs: [all-required-checks-complete]
     environment: release
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Download NuGet artifact
+        uses: actions/download-artifact@v3
         with:
-          fetch-depth: 0 # so that NerdBank.GitVersioning has access to history
-      - name: Setup .NET SDK v6.0.x
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 6.0.x
-      - name: Build
-        run: dotnet build ApiSurface/ApiSurface.fsproj --configuration Release
-      - name: Pack
-        run: dotnet pack ApiSurface/ApiSurface.fsproj --configuration Release
+          name: nuget-package
       - name: Publish to NuGet
-        run: dotnet nuget push "ApiSurface/bin/Release/ApiSurface.*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push "ApiSurface.*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
