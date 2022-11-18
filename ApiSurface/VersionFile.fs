@@ -8,7 +8,10 @@ open System.Text.Json
 open System.Text.Json.Serialization
 open System.Reflection
 
+[<RequireQualifiedAccess>]
 module private VersionFileConverter =
+    // This function has to live in its own module, because of the restrictions on passing
+    // byrefs to inner functions.
     let rec read
         (options : JsonSerializerOptions)
         (reader : Utf8JsonReader byref)
@@ -24,11 +27,9 @@ module private VersionFileConverter =
             | JsonCommentHandling.Allow ->
                 raise (ArgumentException "JsonCommentHandling.Allow is forbidden when reading JSON.")
             | JsonCommentHandling.Disallow ->
-                raise (
-                    JsonException (
-                        "Encountered a comment, but JsonCommentHandling is set to Disallow. Set to Skip if comments should be handled."
-                    )
-                )
+                JsonException
+                    "Encountered a comment, but JsonCommentHandling is set to Disallow. Set to Skip if comments should be handled."
+                |> raise
             | _ ->
                 raise (
                     ArgumentOutOfRangeException (
