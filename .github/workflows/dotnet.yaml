@@ -71,8 +71,19 @@ jobs:
           name: nuget-package
           path: ApiSurface/bin/Release/ApiSurface.*.nupkg
 
+  expected-pack:
+    needs: [nuget-pack]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download NuGet artfeact
+        uses: actions/download-artifact@v3
+        with:
+          name: nuget-package
+      - name: Check NuGet contents
+        run: if [[ $(find . -maxdepth 1 -name 'ApiSurface.*.nupkg' -printf c | wc -c) -ne "1" ]]; then exit 1; fi
+
   all-required-checks-complete:
-    needs: [check-format, build, nuget-pack]
+    needs: [check-format, build, expected-pack]
     runs-on: ubuntu-latest
     steps:
       - run: echo "All required checks complete."
