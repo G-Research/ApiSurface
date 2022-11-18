@@ -75,12 +75,12 @@ jobs:
     needs: [nuget-pack]
     runs-on: ubuntu-latest
     steps:
-      - name: Download NuGet artfeact
+      - name: Download NuGet artifact
         uses: actions/download-artifact@v3
         with:
           name: nuget-package
       - name: Check NuGet contents
-        # Verify that there is exactly one ApiSurface.*.nupkg in the artefact that would be NuGet published
+        # Verify that there is exactly one ApiSurface.*.nupkg in the artifact that would be NuGet published
         run: if [[ $(find . -maxdepth 1 -name 'ApiSurface.*.nupkg' -printf c | wc -c) -ne "1" ]]; then exit 1; fi
 
   all-required-checks-complete:
