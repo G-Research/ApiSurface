@@ -41,16 +41,15 @@ module private VersionFileConverter =
             | Some version, Some publicReleaseRefSpec -> version, publicReleaseRefSpec, pathFilters
             | _, _ -> raise (JsonException "Both fields `version` and `publicReleaseRefSpec` are mandatory.")
         | JsonTokenType.PropertyName ->
-            let propertyName =
-                let s = reader.GetString ()
+            let propertyName = reader.GetString ()
 
+            let comparer =
                 if options.PropertyNameCaseInsensitive then
-                    s.ToLowerInvariant ()
+                    StringComparison.InvariantCultureIgnoreCase
                 else
-                    s
+                    StringComparison.InvariantCulture
 
-            match propertyName with
-            | "version" ->
+            if String.Equals (propertyName, "version", comparer) then
                 match version with
                 | Some existingVersion -> raise (JsonException ("Version property supplied multiple times"))
                 | None ->
@@ -63,7 +62,7 @@ module private VersionFileConverter =
                         raise (JsonException ())
 
                     read options &reader (Some version) publicReleaseRefSpec pathFilters
-            | "publicReleaseRefSpec" ->
+            elif String.Equals (propertyName, "publicReleaseRefSpec", comparer) then
                 match publicReleaseRefSpec with
                 | Some _ -> raise (JsonException "publicReleaseRefSpec property supplied multiple times")
                 | None ->
@@ -74,7 +73,7 @@ module private VersionFileConverter =
                         raise (JsonException ())
 
                     read options &reader version (Some arr) pathFilters
-            | "pathFilters" ->
+            elif String.Equals (propertyName, "pathFilters", comparer) then
                 match pathFilters with
                 | Some _ -> raise (JsonException "pathFilters property supplied multiple times")
                 | None ->
@@ -87,7 +86,8 @@ module private VersionFileConverter =
                         raise (JsonException ())
 
                     read options &reader version publicReleaseRefSpec arr
-            | _ -> raise (JsonException (sprintf "Unexpected property %s" propertyName))
+            else
+                raise (JsonException (sprintf "Unexpected property %s" propertyName))
         | _ -> raise (JsonException (sprintf "Unexpected token type %O" reader.TokenType))
 
 
