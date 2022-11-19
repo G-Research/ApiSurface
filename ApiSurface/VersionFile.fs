@@ -151,8 +151,7 @@ module VersionFile =
     let write (writer : StreamWriter) (versionFile : VersionFile) : unit =
         let options = JsonSerializerOptions (WriteIndented = true)
 
-        JsonSerializer.Serialize (versionFile, options)
-        |> writer.Write
+        JsonSerializer.Serialize (versionFile, options) |> writer.Write
 
     /// Find version.json files referenced within this assembly.
     let findVersionFiles (fs : IFileSystem) (assembly : Assembly) : IFileInfo list =
