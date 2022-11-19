@@ -51,7 +51,7 @@ module private VersionFileConverter =
 
             if String.Equals (propertyName, "version", comparer) then
                 match version with
-                | Some existingVersion -> raise (JsonException ("Version property supplied multiple times"))
+                | Some _existingVersion -> raise (JsonException ("Version property supplied multiple times"))
                 | None ->
                     if not (reader.Read ()) then
                         raise (JsonException ())
@@ -64,7 +64,7 @@ module private VersionFileConverter =
                     read options &reader (Some version) publicReleaseRefSpec pathFilters
             elif String.Equals (propertyName, "publicReleaseRefSpec", comparer) then
                 match publicReleaseRefSpec with
-                | Some _ -> raise (JsonException "publicReleaseRefSpec property supplied multiple times")
+                | Some _existing -> raise (JsonException "publicReleaseRefSpec property supplied multiple times")
                 | None ->
                     let arr =
                         JsonSerializer.Deserialize<string array> (&reader, options) |> Array.toList
@@ -144,18 +144,14 @@ module VersionFile =
                 IgnoreNullValues = false
             )
 
-        options.Converters.Add (VersionFileConverter ())
 
         JsonSerializer.Deserialize<VersionFile> (reader.ReadToEnd (), options)
 
     /// Write a version file into a stream.
     let write (writer : StreamWriter) (versionFile : VersionFile) : unit =
         let options = JsonSerializerOptions (WriteIndented = true)
-        options.Converters.Add (VersionFileConverter ())
 
-        versionFile
-        //|> VersionFileSerialised.ofVersionFile
-        |> fun vf -> JsonSerializer.Serialize (vf, options)
+        JsonSerializer.Serialize (versionFile, options)
         |> writer.Write
 
     /// Find version.json files referenced within this assembly.
