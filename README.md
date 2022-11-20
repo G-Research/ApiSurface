@@ -1,43 +1,25 @@
 # ApiSurface
 
 This library provides several modules for ensuring the consistency and documentation coverage of an F# assembly's public API.
+It also integrates with [NerdBank.GitVersioning] to help you adhere to [Semantic Versioning](https://semver.org/) principles.
 
-## How to get started
+## Quick-start overview
+
+(A more fully worked example appears later in this README.)
+
+By the end of this overview, you have:
+
+* automatically populated a file with a listing of your assembly's public API surface;
+* run a test to assert that your assembly conforms to the API surface in that listing;
+* run a test to assert that your assembly's public API surface is fully documented;
+* run a test to assert that your assembly's version number differs from that in any accessible NuGet repositories by an acceptable amount.
 
 1. Create an empty `SurfaceBaseline.txt` file next to your assembly's `.fsproj` file. (`.csproj` files are not officially supported, but have been observed to work.)
 1. Add an `<EmbeddedResource Include="SurfaceBaseline.txt" />` entry to that `.fsproj` file.
-1. Following the example of this repository's `ApiSurface.Test.TestSurface`, create tests as follows:
-    ```fsharp
-    namespace MyLibrary.Test
-    
-    open NUnit.Framework
-    open ApiSurface
-    open MyLibrary
-    
-    [<TestFixture>]
-    module TestSurface =
-    
-        let assembly = typeof<TypeFromMyLibrary>.Assembly
-    
-        [<Test>]
-        let ``Ensure API surface has not been modified`` () =
-            ApiSurface.assertIdentical assembly
-    
-        [<Test; Explicit>]
-        let ``Update API surface`` () =
-            ApiSurface.writeAssemblyBaseline assembly
-    
-        [<Test>]
-        let ``Ensure public API is fully documented`` () =
-            DocCoverage.assertFullyDocumented assembly
-    
-        [<Test>]
-        let ``Ensure version is monotonic`` () =
-            MonotonicVersion.validate assembly "NuGet.PackageName"
-    ```
-1. Run the `Explicit` test called `Update API surface`, to populate the empty `SurfaceBaseline.txt` file you made earlier.
 1. Similarly, place a `version.json` file next to your project, using the [NerdBank.GitVersioning] format, and include it as an `EmbeddedResource`.
-1. Run the `Ensure version is monotonic` test, to check that your `version.json` file correctly specifies a version number which is valid with respect to the current release of your NuGet package.
+1. Add tests asserting that, for example, `ApiSurface.assertIdentical (assemblyUnderTest : Assembly)`. (See this repository's `ApiSurface.Test.TestSurface` for a more precise example.)
+1. Run `ApiSurface.writeAssemblyBaseline (assemblyUnderTest : Assembly)`, to populate the empty `SurfaceBaseline.txt` file you made earlier. (See this repository's `ApiSurface.Test.TestSurface`.)
+1. Observe that `ApiSurface.assertIdentical assembly`, `ApiSurface.assertFullyDocumented assembly`, and `MonotonicVersion.validate assembly "NuGet.PackageName"` all now run without throwing.
 
 ## The modules of `ApiSurface`
 
@@ -98,7 +80,42 @@ For the complete list of supported frameworks and file names, see the private `f
 
 ## Fully worked end-to-end example
 
-### Within the project file
+Assumptions for this example:
+
+* You have set up a project defining a namespace `MyLibrary`;
+* You have set up a unit test project with a reference to that project, using [NUnit](https://nunit.org/);
+* Your library defines a type called `SomeDefinedType`;
+* Your library is published to a NuGet repository as `MyCompany.MyLibraryNuGetPackage`.
+* After integration with ApiSurface, you are happy to let [NerdBank.GitVersioning] handle your version numbers.
+
+If you are using a different test framework, you will need to adjust the test file accordingly.
+
+If you are not currently publishing your library to NuGet, then you should skip the "Ensure version is monotonic" test.
+
+### `SurfaceBaseline.txt`
+
+Create an empty file called `SurfaceBaseline.txt` next to your main project file.
+This example will eventually use ApiSurface to populate that file.
+
+### `version.json`
+
+Create a file called `version.json` next to your main project file, in the [NerdBank.GitVersioning] format.
+(Currently only a subset of this format is actually supported; see this repository's `VersionFile.fs` for the precise schema.)
+
+```json
+{
+  "version": "1.0",
+  "publicReleaseRefSpec": [
+    "^refs/heads/main$"
+  ],
+  "pathFilters": null
+}
+```
+
+If your release branch is called something other than `main`, or you use release tags instead, then adjust the `publicReleaseRefSpec` accordingly.
+Similarly, if an updated version of your library should be published only when certain files within the repository change, set `pathFilters` to a list of Git pathspecs.
+
+### Within the main project file
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -106,13 +123,15 @@ For the complete list of supported frameworks and file names, see the private `f
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="MyLibrary.fs" />
+    <!-- Additions for ApiSurface -->
     <EmbeddedResource Include="SurfaceBaseline.txt" />
     <EmbeddedResource Include="version.json" />
   </ItemGroup>
 </Project>
 ```
 
-If you are multi-targetting and you wish for different `SurfaceBaseline.txt` files for each target, you should generate `SurfaceBaseline` files for each target (renaming them to follow the naming schema as described in the summary of this README), and include them all in the project file.
+If you are multi-targetting and you wish for different `SurfaceBaseline.txt` files for each target, you should generate `SurfaceBaseline` files for each target (renaming them to follow the naming schema as described in this README's description of the `ApiSurface` module), and include them all in the project file.
 
 ### The version.json file
 
@@ -120,10 +139,8 @@ Add a version.json file to the root of the project, following [NerdBank.GitVersi
 
 ### Within the unit test project
 
-1. Add a reference to `ApiSurface`.
-2. Then add the following files to your test project:
-
-#### TestSurface.fs
+Add a reference to the `ApiSurface` NuGet package.
+Then create a new test file (here we've chosen the name `TestSurface.fs`) within your test project, with the following contents:
 
 ```f#
 namespace MyLibrary.Test
@@ -135,7 +152,7 @@ open ApiSurface
 [<TestFixture>]
 module TestSurface =
 
-    let assembly = typeof<_ MyLibrary.SomeDefinedType>.Assembly
+    let assembly = typeof<MyLibrary.SomeDefinedType>.Assembly
 
     [<Test>]
     let ``Ensure API surface has not been modified`` () =
