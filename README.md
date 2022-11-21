@@ -133,10 +133,6 @@ Similarly, if an updated version of your library should be published only when c
 
 If you are multi-targetting and you wish for different `SurfaceBaseline.txt` files for each target, you should generate `SurfaceBaseline` files for each target (renaming them to follow the naming schema as described in this README's description of the `ApiSurface` module), and include them all in the project file.
 
-### The version.json file
-
-Add a version.json file to the root of the project, following [NerdBank.GitVersioning] convention.
-
 ### Within the unit test project
 
 Add a reference to the `ApiSurface` NuGet package.
