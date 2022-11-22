@@ -2,34 +2,44 @@ namespace ApiSurface
 
 open System.IO
 open System.IO.Abstractions
-open Newtonsoft.Json
+open System.Text.Json
 open System.Reflection
+open System.Text.Json.Serialization
 
 /// A record representing the layout of a version.json file, e.g. as consumed by NerdBank.GitVersioning.
 type VersionFile =
     {
-        /// The version number (e.g. "1.0.1")
-        [<JsonProperty("version")>]
+        /// The version number (e.g. "1.0")
+        [<JsonPropertyName "version">]
         Version : string
         /// The collection of Git references which are to be considered relevant to this package.
         /// For example, "^refs/heads/main$".
-        [<JsonProperty("publicReleaseRefSpec")>]
+        [<JsonPropertyName "publicReleaseRefSpec">]
         PublicReleaseRefSpec : string list
         /// The collection of paths which are to be considered relevant to this package.
-        [<JsonProperty("pathFilters")>]
-        PathFilters : string list
+        [<JsonPropertyName "pathFilters">]
+        PathFilters : string list option
     }
 
 [<RequireQualifiedAccess>]
 module VersionFile =
 
+    let private readOptions =
+        JsonSerializerOptions (
+            ReadCommentHandling = JsonCommentHandling.Skip,
+            AllowTrailingCommas = true,
+            IgnoreNullValues = false
+        )
+
+    let private writeOptions = JsonSerializerOptions (WriteIndented = true)
+
     /// Read and parse a stream representing a version file.
     let read (reader : StreamReader) : VersionFile =
-        JsonConvert.DeserializeObject<VersionFile> (reader.ReadToEnd ())
+        JsonSerializer.Deserialize<VersionFile> (reader.ReadToEnd (), readOptions)
 
     /// Write a version file into a stream.
     let write (writer : StreamWriter) (versionFile : VersionFile) : unit =
-        JsonConvert.SerializeObject (versionFile, Formatting.Indented) |> writer.Write
+        JsonSerializer.Serialize (versionFile, writeOptions) |> writer.Write
 
     /// Find version.json files referenced within this assembly.
     let findVersionFiles (fs : IFileSystem) (assembly : Assembly) : IFileInfo list =

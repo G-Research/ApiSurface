@@ -78,6 +78,11 @@ If you wish to make this specific to .NET Framework or .NET Core, you should the
 
 For the complete list of supported frameworks and file names, see the private `frameworkBaselineFile : string` in the `ApiSurface` module.
 
+## Compatibility notes
+
+Automatic verification and updating of `version.json` is not supported on the .NET Framework and perhaps on older versions of .NET Core, because the version of `System.Text.Json` in those SDKs lacks the ability to serialise F# records.
+You may find that it works anyway if you manually update to a sufficiently high `System.Text.Json` version.
+
 ## Fully worked end-to-end example
 
 Assumptions for this example:

@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>netcoreapp2.1;netcoreapp3.0;net5.0;net6.0;net7.0</TargetFrameworks>
     <IsPublishable>false</IsPublishable>
   </PropertyGroup>
   <ItemGroup>
@@ -12,6 +12,7 @@
     <Compile Include="TestApiSurface.fs" />
     <Compile Include="TestMonotonicVersion.fs" />
     <Compile Include="TestType.fs" />
+    <Compile Include="TestVersionFile.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharp.Core" Version="4.3.4" />
