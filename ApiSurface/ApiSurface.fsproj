@@ -38,6 +38,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NuGet.Packaging" Version="5.11.2" />
     <PackageReference Include="NuGet.Protocol" Version="5.6.0" />
-    <PackageReference Include="System.IO.Abstractions" Version="4.2.13" />
+    <PackageReference Include="System.IO.Abstractions" Version="17.2.26" />
   </ItemGroup>
 </Project>
