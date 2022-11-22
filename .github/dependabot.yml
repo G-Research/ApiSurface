@@ -10,4 +10,6 @@ updates:
     directory: "/ApiSurface"
     schedule:
       interval: "weekly"
-
+    ignore:
+      # Target the lowest version of FSharp.Core, for max compat
+      - dependency-name: "FSharp.Core"
