@@ -20,11 +20,11 @@ jobs:
           - macOS-latest
           - windows-latest
         dotnet:
-          - 2.1.x
-          - 3.1.x
-          - 5.0.x
-          - 6.0.x
-          - 7.0.x
+          - { sdk: 2.1.x, framework: netcoreapp2.1 }
+          - { sdk: 3.1.x, framework: netcoreapp3.1 }
+          - { sdk: 5.0.x, framework: net5.0 }
+          - { sdk: 6.0.x, framework: net6.0 }
+          - { sdk: 7.0.x, framework: net7.0 }
 
     runs-on: ${{matrix.os}}
 
@@ -35,13 +35,13 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: ${{matrix.dotnet}}
+        dotnet-version: ${{matrix.dotnet.sdk}}
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore -pTargetFramework=${{matrix.dotnet.framework}}
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --framework=${{matrix.dotnet.framework}}
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --framework=${{matrix.dotnet.framework}}
 
   check-format:
     runs-on: ubuntu-latest
