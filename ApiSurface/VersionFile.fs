@@ -10,14 +10,11 @@ open System.Text.Json.Serialization
 type VersionFile =
     {
         /// The version number (e.g. "1.0")
-        [<JsonPropertyName "version">]
         Version : string
         /// The collection of Git references which are to be considered relevant to this package.
         /// For example, "^refs/heads/main$".
-        [<JsonPropertyName "publicReleaseRefSpec">]
         PublicReleaseRefSpec : string list
         /// The collection of paths which are to be considered relevant to this package.
-        [<JsonPropertyName "pathFilters">]
         PathFilters : string list option
     }
 
@@ -28,10 +25,12 @@ module VersionFile =
         JsonSerializerOptions (
             ReadCommentHandling = JsonCommentHandling.Skip,
             AllowTrailingCommas = true,
-            IgnoreNullValues = false
+            IgnoreNullValues = false,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         )
 
-    let private writeOptions = JsonSerializerOptions (WriteIndented = true)
+    let private writeOptions =
+        JsonSerializerOptions (WriteIndented = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase)
 
     /// Read and parse a stream representing a version file.
     let read (reader : StreamReader) : VersionFile =
