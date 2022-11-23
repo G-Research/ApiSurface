@@ -43,11 +43,14 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Clean for .NET Framework
+      if: ${{ matrix.os == 'windows-latest' && matrix.dotnet.sdk == '6.0.x' }}
+      run: dotnet clean
     - name: .NET Framework test
       if: ${{ matrix.os == 'windows-latest' && matrix.dotnet.sdk == '6.0.x' }}
       env:
         CI_TEST_FRAMEWORK: net481
-      run: dotnet clean && dotnet restore && dotnet build --no-restore && dotnet test --no-build --verbosity normal
+      run: dotnet restore && dotnet build --no-restore && dotnet test --no-build --verbosity normal
 
   check-format:
     runs-on: ubuntu-latest
