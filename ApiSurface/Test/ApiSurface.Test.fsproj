@@ -1,6 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Condition="'$(CI_TEST_FRAMEWORK)'!=''">
+    <TargetFramework>$(CI_TEST_FRAMEWORK)</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(CI_TEST_FRAMEWORK)'==''">
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;netcoreapp3.0;net5.0;net6.0;net7.0</TargetFrameworks>
     <IsPublishable>false</IsPublishable>
   </PropertyGroup>
   <ItemGroup>

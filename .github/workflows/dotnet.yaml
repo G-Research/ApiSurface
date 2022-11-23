@@ -27,6 +27,8 @@ jobs:
           - { sdk: 7.0.x, framework: net7.0 }
 
     runs-on: ${{matrix.os}}
+    env:
+      CI_TEST_FRAMEWORK: ${{matrix.dotnet.framework}}
 
     steps:
     - uses: actions/checkout@v3
@@ -37,11 +39,11 @@ jobs:
       with:
         dotnet-version: ${{matrix.dotnet.sdk}}
     - name: Restore dependencies
-      run: dotnet restore '/p:TargetFramework=${{matrix.dotnet.framework}}'
+      run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore --framework=${{matrix.dotnet.framework}}
+      run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal --framework=${{matrix.dotnet.framework}}
+      run: dotnet test --no-build --verbosity normal
 
   check-format:
     runs-on: ubuntu-latest
