@@ -80,8 +80,7 @@ For the complete list of supported frameworks and file names, see the private `f
 
 ## Compatibility notes
 
-This project is untested on the .NET Framework; if it works on e.g. net481, this is purely by coincidence.
-Similarly, netcoreapp2.1 and earlier are untested.
+This project is untested on older versions of the .NET Framework and of .NET Core; check the GitHub Actions test matrix to see the platforms on which the tests run.
 
 ## Fully worked end-to-end example
 
