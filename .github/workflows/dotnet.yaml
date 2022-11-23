@@ -24,6 +24,9 @@ jobs:
           - { sdk: 5.0.x, framework: net5.0 }
           - { sdk: 6.0.x, framework: net6.0 }
           - { sdk: 7.0.x, framework: net7.0 }
+        include:
+          - os: windows-latest
+            dotnet: { sdk: 6.0.x, framework: net481 }
 
     runs-on: ${{matrix.os}}
     env:
@@ -43,14 +46,6 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    - name: Clean for .NET Framework
-      if: ${{ matrix.os == 'windows-latest' && matrix.dotnet.sdk == '6.0.x' }}
-      run: dotnet clean
-    - name: .NET Framework test
-      if: ${{ matrix.os == 'windows-latest' && matrix.dotnet.sdk == '6.0.x' }}
-      env:
-        CI_TEST_FRAMEWORK: net481
-      run: dotnet restore && dotnet build --no-restore && dotnet test --no-build --verbosity normal
 
   check-format:
     runs-on: ubuntu-latest
