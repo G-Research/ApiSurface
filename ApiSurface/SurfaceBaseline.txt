@@ -99,12 +99,16 @@ ApiSurface.SurfaceComparisonModule.AssertNoneRemoved [static method]: bool -> Ap
 ApiSurface.SurfaceComparisonModule.RemovedSymbols [static method]: ApiSurface.SurfaceComparison -> string list
 ApiSurface.VersionFile inherit obj, implements ApiSurface.VersionFile System.IEquatable, System.Collections.IStructuralEquatable, ApiSurface.VersionFile System.IComparable, System.IComparable, System.Collections.IStructuralComparable
 ApiSurface.VersionFile..ctor [constructor]: (string, string list, string list option)
+ApiSurface.VersionFile..ctor [constructor]: unit
 ApiSurface.VersionFile.get_PathFilters [method]: unit -> string list option
 ApiSurface.VersionFile.get_PublicReleaseRefSpec [method]: unit -> string list
 ApiSurface.VersionFile.get_Version [method]: unit -> string
-ApiSurface.VersionFile.PathFilters [property]: [read-only] string list option
-ApiSurface.VersionFile.PublicReleaseRefSpec [property]: [read-only] string list
-ApiSurface.VersionFile.Version [property]: [read-only] string
+ApiSurface.VersionFile.PathFilters [property]: string list option
+ApiSurface.VersionFile.PublicReleaseRefSpec [property]: string list
+ApiSurface.VersionFile.set_PathFilters [method]: string list option -> unit
+ApiSurface.VersionFile.set_PublicReleaseRefSpec [method]: string list -> unit
+ApiSurface.VersionFile.set_Version [method]: string -> unit
+ApiSurface.VersionFile.Version [property]: string
 ApiSurface.VersionFileModule inherit obj
 ApiSurface.VersionFileModule.findVersionFiles [static method]: System.IO.Abstractions.IFileSystem -> System.Reflection.Assembly -> System.IO.Abstractions.IFileInfo list
 ApiSurface.VersionFileModule.findVersionFilesWithDirectory [static method]: System.IO.Abstractions.IFileSystem -> string -> System.Reflection.Assembly -> System.IO.Abstractions.IFileInfo list

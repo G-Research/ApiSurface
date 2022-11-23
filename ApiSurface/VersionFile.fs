@@ -7,6 +7,7 @@ open System.Reflection
 open System.Text.Json.Serialization
 
 /// A record representing the layout of a version.json file, e.g. as consumed by NerdBank.GitVersioning.
+[<CLIMutable>]
 type VersionFile =
     {
         /// The version number (e.g. "1.0")
