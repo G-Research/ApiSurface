@@ -37,7 +37,7 @@ jobs:
       with:
         dotnet-version: ${{matrix.dotnet.sdk}}
     - name: Restore dependencies
-      run: dotnet restore -pTargetFramework=${{matrix.dotnet.framework}}
+      run: dotnet restore '/p:TargetFramework=${{matrix.dotnet.framework}}'
     - name: Build
       run: dotnet build --no-restore --framework=${{matrix.dotnet.framework}}
     - name: Test
