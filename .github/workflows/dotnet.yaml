@@ -7,6 +7,7 @@ on:
     branches: [ main ]
 
 env:
+  DOTNET_NOLOGO: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
 
@@ -18,8 +19,16 @@ jobs:
           - ubuntu-latest
           - macOS-latest
           - windows-latest
+        dotnet:
+          - { sdk: 2.1.x, framework: netcoreapp2.1 }
+          - { sdk: 3.1.x, framework: netcoreapp3.1 }
+          - { sdk: 5.0.x, framework: net5.0 }
+          - { sdk: 6.0.x, framework: net6.0 }
+          - { sdk: 7.0.x, framework: net7.0 }
 
     runs-on: ${{matrix.os}}
+    env:
+      CI_TEST_FRAMEWORK: ${{matrix.dotnet.framework}}
 
     steps:
     - uses: actions/checkout@v3
@@ -28,7 +37,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: ${{matrix.dotnet.sdk}}
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
