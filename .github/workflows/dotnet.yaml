@@ -29,8 +29,6 @@ jobs:
             dotnet: { sdk: 6.0.x, framework: net481 }
 
     runs-on: ${{matrix.os}}
-    env:
-      CI_TEST_FRAMEWORK: ${{matrix.dotnet.framework}}
 
     steps:
     - uses: actions/checkout@v3
@@ -45,7 +43,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --framework ${{matrix.dotnet.framework}}
 
   check-format:
     runs-on: ubuntu-latest
