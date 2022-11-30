@@ -22,19 +22,21 @@ module MonotonicVersion =
 
         inner 1
 
-    let validateVersion (currentVersion : NuGetVersion) (latestVersion : NuGetVersion) =
+    let validateVersion (packageId : string) (currentVersion : NuGetVersion) (latestVersion : NuGetVersion) =
         let latestVersion = NuGetVersion (latestVersion.Major, latestVersion.Minor, 0)
         let latestVersionStr = latestVersion.Version.ToString 2
 
         if currentVersion >= latestVersion then
             printfn
-                "Version specified in version.json (%O) is >= the latest version in the NuGet repository (%s)"
+                "Version of '%s' specified in version.json (%O) is >= the latest version in the NuGet repository (%s)"
+                packageId
                 currentVersion
                 latestVersionStr
         else
             [
                 sprintf
-                    "Version specified in version.json (%O) is less than the latest version in the NuGet repository (%s)"
+                    "Version of '%s' specified in version.json (%O) is less than the latest version in the NuGet repository (%s)"
+                    packageId
                     currentVersion
                     latestVersionStr
                 ""
@@ -47,7 +49,11 @@ module MonotonicVersion =
 
     /// Checks to make sure that either the minor version has increased by at most 1, or the major version has increased by at most 1.
     /// If both have updated or one has updated by more than 1 then it suggests a mistake has been made.
-    let versionIncreaseIsInAcceptableRange (currentVersion : NuGetVersion) (latestVersion : NuGetVersion) =
+    let versionIncreaseIsInAcceptableRange
+        (packageId : string)
+        (currentVersion : NuGetVersion)
+        (latestVersion : NuGetVersion)
+        =
         let majorDiff = currentVersion.Major - latestVersion.Major
         let minorDiff = currentVersion.Minor - latestVersion.Minor
         let latestVersion = NuGetVersion (latestVersion.Major, latestVersion.Minor, 0)
@@ -58,13 +64,15 @@ module MonotonicVersion =
 
         if acceptableMajorIncrease || acceptableMinorIncrease then
             printfn
-                "Version specified in version.json (%O) is >= the latest version in the NuGet repository by an acceptable amount (%s)"
+                "Version of '%s' specified in version.json (%O) is >= the latest version in the NuGet repository by an acceptable amount (%s)"
+                packageId
                 currentVersion
                 latestVersionStr
         else
             [
                 sprintf
-                    "Version specified in version.json (%O) is larger than the latest version in the NuGet repository (%s) by an unacceptable amount"
+                    "Version of '%s' specified in version.json (%O) is larger than the latest version in the NuGet repository (%s) by an unacceptable amount"
+                    packageId
                     currentVersion
                     latestVersionStr
                 ""
@@ -128,8 +136,8 @@ module MonotonicVersion =
         match List.tryHead versions with
         | None -> printfn "Found no public versions of package '%s'" packageId
         | Some latestVersion ->
-            validateVersion currentVersion latestVersion
-            versionIncreaseIsInAcceptableRange currentVersion latestVersion
+            validateVersion packageId currentVersion latestVersion
+            versionIncreaseIsInAcceptableRange packageId currentVersion latestVersion
 
     [<CompiledName "Validate">]
     let validate (assembly : Assembly) (packageId : string) =
