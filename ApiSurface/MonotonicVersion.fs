@@ -22,7 +22,7 @@ module MonotonicVersion =
 
         inner 1
 
-    let validateVersion (currentVersion : NuGetVersion) (latestVersion : NuGetVersion) (packageId : string) =
+    let validateVersion (packageId : string) (currentVersion : NuGetVersion) (latestVersion : NuGetVersion) =
         let latestVersion = NuGetVersion (latestVersion.Major, latestVersion.Minor, 0)
         let latestVersionStr = latestVersion.Version.ToString 2
 
@@ -50,9 +50,9 @@ module MonotonicVersion =
     /// Checks to make sure that either the minor version has increased by at most 1, or the major version has increased by at most 1.
     /// If both have updated or one has updated by more than 1 then it suggests a mistake has been made.
     let versionIncreaseIsInAcceptableRange
+        (packageId : string)
         (currentVersion : NuGetVersion)
         (latestVersion : NuGetVersion)
-        (packageId : string)
         =
         let majorDiff = currentVersion.Major - latestVersion.Major
         let minorDiff = currentVersion.Minor - latestVersion.Minor
@@ -136,8 +136,8 @@ module MonotonicVersion =
         match List.tryHead versions with
         | None -> printfn "Found no public versions of package '%s'" packageId
         | Some latestVersion ->
-            validateVersion currentVersion latestVersion packageId
-            versionIncreaseIsInAcceptableRange currentVersion latestVersion packageId
+            validateVersion packageId currentVersion latestVersion
+            versionIncreaseIsInAcceptableRange packageId currentVersion latestVersion
 
     [<CompiledName "Validate">]
     let validate (assembly : Assembly) (packageId : string) =

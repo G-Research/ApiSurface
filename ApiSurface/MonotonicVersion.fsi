@@ -8,10 +8,10 @@ open NuGet.Versioning
 module MonotonicVersion =
 
     val internal validateVersion :
-        currentVersion : NuGetVersion -> latestVersion : NuGetVersion -> packageId : string -> unit
+        packageId : string -> currentVersion : NuGetVersion -> latestVersion : NuGetVersion -> unit
 
     val internal versionIncreaseIsInAcceptableRange :
-        currentVersion : NuGetVersion -> latestVersion : NuGetVersion -> packageId : string -> unit
+        packageId : string -> currentVersion : NuGetVersion -> latestVersion : NuGetVersion -> unit
 
     /// Ensure the version in version.json is increasing monotonically
     [<CompiledName "Validate">]
