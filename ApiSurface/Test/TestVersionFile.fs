@@ -26,12 +26,9 @@ module TestVersionFile =
         let reader = new StreamReader (stream)
         reader.ReadToEnd ()
 
-    [<TestCase(true, true)>]
-    [<TestCase(true, false)>]
-    [<TestCase(false, true)>]
-    [<TestCase(false, false)>]
-    let ``Can parse version file`` (hasPathFilters : bool, hasComment : bool) =
-        let pathFilters = if hasPathFilters then "[\".\"]" else "null"
+    [<TestCase true>]
+    [<TestCase false>]
+    let ``Can parse version file with path filters`` (hasComment : bool) =
         let comment = if hasComment then "// comment here\n" else ""
 
         sprintf
@@ -40,18 +37,65 @@ module TestVersionFile =
   "publicReleaseRefSpec": %s[
     "^refs/heads/main$"
   ],
-  "pathFilters": %s
+  "pathFilters": ["."]
 }"""
             comment
             comment
             comment
-            pathFilters
         |> parse
         |> shouldEqual
             {
                 Version = "4.0"
                 PublicReleaseRefSpec = [ "^refs/heads/main$" ]
-                PathFilters = if hasPathFilters then Some [ "." ] else None
+                PathFilters = Some [ "." ]
+            }
+
+    [<TestCase true>]
+    [<TestCase false>]
+    let ``Can parse version file with null path filters`` (hasComment : bool) =
+        let comment = if hasComment then "// comment here\n" else ""
+
+        sprintf
+            """%s{
+  %s"version": "4.0",
+  "publicReleaseRefSpec": %s[
+    "^refs/heads/main$"
+  ],
+  "pathFilters": null
+}"""
+            comment
+            comment
+            comment
+        |> parse
+        |> shouldEqual
+            {
+                Version = "4.0"
+                PublicReleaseRefSpec = [ "^refs/heads/main$" ]
+                PathFilters = None
+            }
+
+
+    [<TestCase true>]
+    [<TestCase false>]
+    let ``Can parse version file with omitted path filters`` (hasComment : bool) =
+        let comment = if hasComment then "// comment here\n" else ""
+
+        sprintf
+            """%s{
+  %s"version": "4.0",
+  "publicReleaseRefSpec": %s[
+    "^refs/heads/main$"
+  ]
+}"""
+            comment
+            comment
+            comment
+        |> parse
+        |> shouldEqual
+            {
+                Version = "4.0"
+                PublicReleaseRefSpec = [ "^refs/heads/main$" ]
+                PathFilters = None
             }
 
     let versionFiles =

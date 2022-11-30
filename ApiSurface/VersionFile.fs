@@ -25,7 +25,6 @@ module VersionFile =
         JsonSerializerOptions (
             ReadCommentHandling = JsonCommentHandling.Skip,
             AllowTrailingCommas = true,
-            IgnoreNullValues = false,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         )
 
