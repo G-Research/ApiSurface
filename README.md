@@ -78,6 +78,10 @@ If you wish to make this specific to .NET Framework or .NET Core, you should the
 
 For the complete list of supported frameworks and file names, see the private `frameworkBaselineFile : string` in the `ApiSurface` module.
 
+## Compatibility notes
+
+This project is untested on older versions of the .NET Framework and of .NET Core; check the GitHub Actions test matrix to see the platforms on which the tests run.
+
 ## Fully worked end-to-end example
 
 Assumptions for this example:
