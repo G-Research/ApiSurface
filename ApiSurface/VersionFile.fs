@@ -42,7 +42,7 @@ module VersionFile =
     /// Find version.json files referenced within this assembly.
     let findVersionFiles (fs : IFileSystem) (assembly : Assembly) : IFileInfo list =
         let filenames = assembly |> Assembly.findProjectFiles (fun _ -> [ "version.json" ])
-        filenames |> List.filter File.Exists |> List.map fs.FileInfo.FromFileName
+        filenames |> List.filter File.Exists |> List.map fs.FileInfo.New
 
     /// Find version.json files above this assembly, but stopping when we hit a directory with
     /// the given name.
@@ -51,4 +51,4 @@ module VersionFile =
             assembly
             |> Assembly.findProjectFilesWithDirectory dir (fun _ -> [ "version.json" ])
 
-        filenames |> List.filter File.Exists |> List.map fs.FileInfo.FromFileName
+        filenames |> List.filter File.Exists |> List.map fs.FileInfo.New
