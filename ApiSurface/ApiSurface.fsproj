@@ -37,7 +37,7 @@
     <PackageReference Include="FSharp.Core" Version="4.3.4" />
     <PackageReference Include="System.Text.Json" Version="6.0.0" />
     <PackageReference Include="NuGet.Packaging" Version="6.5.0" />
-    <PackageReference Include="NuGet.Protocol" Version="6.4.0" />
+    <PackageReference Include="NuGet.Protocol" Version="6.5.0" />
     <PackageReference Include="System.IO.Abstractions" Version="4.2.13" />
   </ItemGroup>
 </Project>
