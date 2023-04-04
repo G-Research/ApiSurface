@@ -200,23 +200,23 @@ type internal MomentActionsId =
 type IndexedProperties<'a, 'b> =
     /// Simple getter with one argument
     member this.Item
-        with get (_ : int) : string = failwith ""
+        with get (_ : int): string = failwith ""
 
     /// Overloaded getter with two arguments
     member this.Overloaded
-        with get (_ : int, _ : int) : string = failwith ""
+        with get (_ : int, _ : int): string = failwith ""
 
     /// Overloaded getter with two arguments
     member this.Overloaded
-        with get (_ : string, _ : int) : string = failwith ""
+        with get (_ : string, _ : int): string = failwith ""
 
     /// Getter with one argument
     member this.GenericItem
-        with get (_ : int * (int * int)) : string = failwith ""
+        with get (_ : int * (int * int)): string = failwith ""
 
     /// Getter with multiple arguments
     member this.GenericParamItem
-        with get (_ : 'b, _ : 'a, _ : int) : string = failwith ""
+        with get (_ : 'b, _ : 'a, _ : int): string = failwith ""
 
 /// A module containing operators
 [<AutoOpen>]
