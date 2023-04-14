@@ -156,8 +156,8 @@ module TypeTests =
     [<TestCase(true)>]
     let ``Test toString with parameter type constraints`` (fullName : bool) =
         let mi =
-            typeof<TestFunctions.Hack>.DeclaringType.GetMethod
-                ("simpleParameterConstraint", BindingFlags.Static ||| BindingFlags.NonPublic)
+            typeof<TestFunctions.Hack>.DeclaringType
+                .GetMethod ("simpleParameterConstraint", BindingFlags.Static ||| BindingFlags.NonPublic)
 
         let p = mi.GetParameters().[0]
 
@@ -169,8 +169,8 @@ module TypeTests =
     [<TestCase(true)>]
     let ``Test toString with multiple parameter type constraints`` (fullName : bool) =
         let mi =
-            typeof<TestFunctions.Hack>.DeclaringType.GetMethod
-                ("multipleParameterConstraint", BindingFlags.Static ||| BindingFlags.NonPublic)
+            typeof<TestFunctions.Hack>.DeclaringType
+                .GetMethod ("multipleParameterConstraint", BindingFlags.Static ||| BindingFlags.NonPublic)
 
         let p = mi.GetParameters().[0]
 

@@ -118,12 +118,7 @@ module MonotonicVersion =
 
                 retry (fun () ->
                     metadataResource
-                        .GetAllVersionsAsync(
-                            packageId,
-                            cacheContext,
-                            NullLogger.Instance,
-                            CancellationToken.None
-                        )
+                        .GetAllVersionsAsync(packageId, cacheContext, NullLogger.Instance, CancellationToken.None)
                         .Result
                     |> Array.ofSeq
                 )
