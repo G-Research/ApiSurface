@@ -1,5 +1,6 @@
 namespace ApiSurface
 
+open System
 open System.IO
 open System.Reflection
 
@@ -16,7 +17,7 @@ module internal Assembly =
             |> Seq.toList
             |> List.choose (fun i -> i.Namespace |> Option.ofObj)
             |> Set.ofList
-            |> Set.filter (fun i -> i.StartsWith "<" |> not)
+            |> Set.filter (fun i -> i.StartsWith ("<", StringComparison.Ordinal) |> not)
             |> Set.add (assembly.GetName().Name)
 
         namespaces

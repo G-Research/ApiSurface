@@ -80,7 +80,7 @@ module DocCoverage =
 
         // op_xyz$W methods are written to the xml file without the $W suffix
         let trimmedName =
-            if methInfo.Name.EndsWith "$W" then
+            if methInfo.Name.EndsWith ("$W", StringComparison.Ordinal) then
                 methInfo.Name.Substring (0, methInfo.Name.Length - 2)
             else
                 methInfo.Name
@@ -156,7 +156,8 @@ module DocCoverage =
                         let methInfo = mi :?> MethodInfo
 
                         not methInfo.IsSpecialName
-                        || (not (mi.Name.StartsWith "get_") && not (mi.Name.StartsWith "set_"))
+                        || (not (mi.Name.StartsWith ("get_", StringComparison.Ordinal))
+                            && not (mi.Name.StartsWith ("set_", StringComparison.Ordinal)))
 
                     // Skip nested types of F# unions - they're compiler
                     // generated (so cannot be commented), although not
@@ -176,7 +177,7 @@ module DocCoverage =
                 // Skip modules which have a corresponding type
                 let optionalTypeDoc =
                     let searchName =
-                        if t.FullName.EndsWith "Module" then
+                        if t.FullName.EndsWith ("Module", StringComparison.Ordinal) then
                             t.FullName.Substring (0, t.FullName.Length - 6)
                         else
                             t.FullName
@@ -201,7 +202,7 @@ module DocCoverage =
                     else
 
                     match mi.MemberType with
-                    | MemberTypes.Method when isUnion && mi.Name.StartsWith "New" ->
+                    | MemberTypes.Method when isUnion && mi.Name.StartsWith ("New", StringComparison.Ordinal) ->
                         // Strip the 'New' prefix and make this member a nested
                         // type instead
                         [
@@ -355,7 +356,7 @@ module DocCoverage =
                 // Skip backing-fields of class properties.
                 // These are private, but the F# compiler emits them in the XML
                 // documentation anyway.
-                not (memberName.EndsWith "@")
+                not (memberName.EndsWith ("@", StringComparison.Ordinal))
             )
             |> Set.ofSeq
             |> Members.UnknownAccess
