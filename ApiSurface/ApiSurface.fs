@@ -1,5 +1,6 @@
 ﻿namespace ApiSurface
 
+open System
 open System.IO.Abstractions
 open System.Text.RegularExpressions
 open System.Runtime.CompilerServices
@@ -33,9 +34,9 @@ module ApiSurface =
     let private frameworkBaselineFile =
         let desc = RuntimeInformation.FrameworkDescription
 
-        if desc.StartsWith ".NET Core" then
+        if desc.StartsWith (".NET Core", StringComparison.Ordinal) then
             "SurfaceBaseline-NetCore.txt"
-        elif desc.StartsWith ".NET Framework" then
+        elif desc.StartsWith (".NET Framework", StringComparison.Ordinal) then
             "SurfaceBaseline-NetFramework.txt"
         else
             // e.g. "SurfaceBaseline-Net5.txt"
