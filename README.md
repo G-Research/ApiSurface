@@ -1,7 +1,7 @@
 # ApiSurface
 
 This library provides several modules for ensuring the consistency and documentation coverage of an F# assembly's public API.
-It also integrates with [NerdBank.GitVersioning] to help you adhere to [Semantic Versioning](https://nonexistent/) principles.
+It also integrates with [NerdBank.GitVersioning] to help you adhere to [Semantic Versioning](https://semver.org/) principles.
 
 ## Quick-start overview
 
