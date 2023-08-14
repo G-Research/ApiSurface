@@ -239,5 +239,8 @@ module Sample =
             "T:ApiSurface.DocumentationSample.MyModule.someInnerLambda@107"
             "M:ApiSurface.DocumentationSample.MyModule.someInnerLambda@107.Invoke(System.Int32)"
             "F:ApiSurface.DocumentationSample.MyModule.someInnerLambda@107.x"
+            // github.com/G-Research/ApiSurface/pull/40 saw this on macOS net7.0.
+            // I was unable to reproduce it locally.
+            "F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.value__"
         ]
         |> Set.ofList
