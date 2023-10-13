@@ -100,7 +100,7 @@ module internal Type =
             |> sprintf
                 "%s%s"
                 (if
-                     t.Name.StartsWith ("ValueTuple", false, CultureInfo.InvariantCulture)
+                     t.Name.StartsWith ("ValueTuple", StringComparison.Ordinal)
                      && t.Namespace = "System"
                  then
                      "struct "
