@@ -59,6 +59,26 @@ jobs:
       - name: Run Fantomas
         run: ./hooks/pre-push
 
+  analyze-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup .NET SDK v6.0.x
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name: Prepare .NET tools
+        run: dotnet tool restore
+      - name: Prepare analyzers
+        run: dotnet restore ./analyzers/analyzers.fsproj
+      - name: Restore dependencies
+        run: dotnet restore ./ApiSurface/ApiSurface.fsproj
+      - name: Run analyzers
+        run: dotnet fsharp-analyzers --project ./ApiSurface/ApiSurface.fsproj --analyzers-path ./.analyzerpackages/g-research.fsharp.analyzers/0.1.3/ --verbose --fail-on-warnings GRA-STRING-001 GRA-STRING-002 GRA-STRING-003 GRA-UNIONCASE-001
+
   nuget-pack:
     runs-on: ubuntu-latest
     steps:
