@@ -1,6 +1,7 @@
 namespace ApiSurface
 
 open System
+open System.Globalization
 open FSharp.Reflection
 
 /// Associated helper functions for handling System.Type objects.
@@ -98,7 +99,10 @@ module internal Type =
             |> sprintf "(%s)"
             |> sprintf
                 "%s%s"
-                (if t.Name.StartsWith "ValueTuple" && t.Namespace = "System" then
+                (if
+                     t.Name.StartsWith ("ValueTuple", false, CultureInfo.InvariantCulture)
+                     && t.Namespace = "System"
+                 then
                      "struct "
                  else
                      "")
