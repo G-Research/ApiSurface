@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, analyzers_integration ]
   pull_request:
     branches: [ main ]
 
