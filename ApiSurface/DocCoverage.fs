@@ -96,7 +96,12 @@ module DocCoverage =
 
     [<CompiledName "FromAssemblySurface">]
     let ofAssemblySurface (assembly : Assembly) : DocCoverage =
-        let types = assembly.GetTypes () |> Array.ofSeq
+        let types =
+            assembly.GetTypes ()
+            |> Array.filter (fun ty ->
+                // Skip the new code-analysis types added in net7
+                not (ty.FullName.StartsWith ("System.Diagnostics.CodeAnalysis.Dynamic", StringComparison.Ordinal))
+            )
 
         let getSourceConstructFlags (compilationMapping : CompilationMappingAttribute) =
             if obj.ReferenceEquals (compilationMapping, null) then
