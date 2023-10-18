@@ -77,7 +77,7 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore ./ApiSurface/ApiSurface.fsproj
       - name: Run analyzers
-        run: dotnet fsharp-analyzers --project ./ApiSurface/ApiSurface.fsproj --analyzers-path ./.analyzerpackages/g-research.fsharp.analyzers/0.1.4/ --verbose --fail-on-warnings GRA-STRING-001 GRA-STRING-002 GRA-STRING-003 GRA-UNIONCASE-001 --exclude-analyzer PartialAppAnalyzer
+        run: dotnet fsharp-analyzers --project ./ApiSurface/ApiSurface.fsproj --analyzers-path ./.analyzerpackages/g-research.fsharp.analyzers/0.1.5/ --verbose --fail-on-warnings GRA-STRING-001 GRA-STRING-002 GRA-STRING-003 GRA-UNIONCASE-001
 
   nuget-pack:
     runs-on: ubuntu-latest
