@@ -99,7 +99,8 @@ module DocCoverage =
         let types =
             assembly.GetTypes ()
             |> Array.filter (fun ty ->
-                // Skip the new code-analysis types added in net7
+                // Skip the new code-analysis types added in net7 (discussion ongoing: see
+                // https://github.com/dotnet/runtime/issues/93699 )
                 not (ty.FullName.StartsWith ("System.Diagnostics.CodeAnalysis.Dynamic", StringComparison.Ordinal))
             )
 
