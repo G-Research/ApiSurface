@@ -1,7 +1,6 @@
 namespace ApiSurface
 
 open System
-open System.Globalization
 open FSharp.Reflection
 
 /// Associated helper functions for handling System.Type objects.
