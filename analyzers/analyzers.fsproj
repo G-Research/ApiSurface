@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <IsPackable>false</IsPackable>
+    <IsPublishable>false</IsPublishable>
     <RestorePackagesPath>../.analyzerpackages/</RestorePackagesPath> <!-- Changes the global packages folder-->
     <!-- <MSBuildProjectExtensionsPath>$(RestorePackagesPath)obj/</MSBuildProjectExtensionsPath> --> <!-- It's still PackageReference, so project intermediates are still created. -->
     <TargetFramework>net6.0</TargetFramework> <!-- This is not super relevant, as long as your SDK version supports it. -->
