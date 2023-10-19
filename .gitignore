@@ -7,3 +7,4 @@ riderModule.iml
 *.sln.DotSettings.user
 .analyzerpackages
 analysis.sarif
+.DS_Store
