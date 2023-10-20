@@ -98,7 +98,10 @@ module internal Type =
             |> sprintf "(%s)"
             |> sprintf
                 "%s%s"
-                (if t.Name.StartsWith "ValueTuple" && t.Namespace = "System" then
+                (if
+                     t.Name.StartsWith ("ValueTuple", StringComparison.Ordinal)
+                     && t.Namespace = "System"
+                 then
                      "struct "
                  else
                      "")
