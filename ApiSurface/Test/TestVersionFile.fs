@@ -1,9 +1,11 @@
 ﻿namespace ApiSurface.Test
 
 open System.IO
+open System.IO.Abstractions.TestingHelpers
 open ApiSurface
 open NUnit.Framework
 open FsUnitTyped
+open FsCheck
 
 [<TestFixture>]
 module TestVersionFile =
@@ -120,3 +122,48 @@ module TestVersionFile =
     [<TestCaseSource "versionFiles">]
     let ``Can write version file`` (versionFile : VersionFile) =
         versionFile |> serialise |> parse |> shouldEqual versionFile
+
+    let versionFileGen : Gen<VersionFile> =
+        gen {
+            let! major = Arb.generate<int>
+            let major = abs major
+            let! minor = Arb.generate<int>
+            let minor = abs minor
+            let! releaseRefSpec = Arb.generate<NonNull<string> list>
+            let! pathFilters = Arb.generate<NonNull<string> list option>
+
+            return
+                {
+                    Version = sprintf "%i.%i" major minor
+                    PublicReleaseRefSpec = releaseRefSpec |> List.map (fun spec -> spec.Get)
+                    PathFilters = pathFilters |> Option.map (List.map (fun filter -> filter.Get))
+                }
+        }
+
+    let private incrementVersion (version : string) =
+        match version.Split '.' with
+        | [| major ; _minor |] -> sprintf "%i.0" (int major + 1)
+        | _ -> failwithf "Unrecognised version string: %s" version
+
+    [<Test>]
+    let ``version JSON file can be written`` () =
+        let property (versionFile : VersionFile) =
+            let fs = MockFileSystem ()
+            let location = fs.FileInfo.FromFileName "version.json"
+
+            versionFile
+            |> serialise
+            |> fun s -> fs.File.WriteAllText (location.FullName, s)
+
+            let baseline = ApiSurface [ "something" ; "something else" ]
+            ApiSurface.updateVersionJson baseline typeof<ApiSurface>.Assembly location
+
+            let output = fs.File.ReadAllText location.FullName
+
+            parse output
+            |> shouldEqual
+                { versionFile with
+                    Version = incrementVersion versionFile.Version
+                }
+
+        Prop.forAll (Arb.fromGen versionFileGen) property |> Check.QuickThrowOnFailure

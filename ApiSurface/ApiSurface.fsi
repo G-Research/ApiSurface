@@ -58,3 +58,6 @@ module ApiSurface =
     val writeAssemblyBaselineWithDirectory : string -> Assembly -> unit
 
     val internal findNewVersion : Version -> baseline : ApiSurface -> target : ApiSurface -> Version
+
+    val internal updateVersionJson :
+        baseline : ApiSurface -> Assembly -> versionFile : System.IO.Abstractions.IFileInfo -> unit
