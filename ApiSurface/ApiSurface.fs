@@ -205,7 +205,7 @@ module ApiSurface =
                 Version = sprintf "%d.%d" version.Major version.Minor
             }
 
-        use writer = versionFile.OpenWrite ()
+        use writer = versionFile.Open FileMode.Create
         use writer = new StreamWriter (writer)
         updatedFile |> VersionFile.write writer
 
