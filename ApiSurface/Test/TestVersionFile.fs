@@ -147,6 +147,8 @@ module TestVersionFile =
 
     [<Test>]
     let ``version JSON file can be written`` () =
+        use standardOutput = new RedirectOutput ()
+
         let property (versionFile : VersionFile) =
             let fs = MockFileSystem ()
             let location = fs.FileInfo.FromFileName "version.json"
