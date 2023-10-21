@@ -99,9 +99,11 @@ module DocCoverage =
         let types =
             assembly.GetTypes ()
             |> Array.filter (fun ty ->
-                // Skip the new code-analysis types added in net7 (discussion ongoing: see
-                // https://github.com/dotnet/runtime/issues/93699 )
-                not (ty.FullName.StartsWith ("System.Diagnostics.CodeAnalysis.Dynamic", StringComparison.Ordinal))
+                obj.ReferenceEquals (ty.GetCustomAttribute<CompilerGeneratedAttribute> (), null)
+                // A version of the F# compiler in 7.0.400 emitted some generated types which were not marked
+                // as compiler-generated. Skip those.
+                // https://github.com/dotnet/fsharp/issues/16141
+                && not (ty.FullName.StartsWith ("System.Diagnostics.CodeAnalysis.Dynamic", StringComparison.Ordinal))
             )
 
         let getSourceConstructFlags (compilationMapping : CompilationMappingAttribute) =
