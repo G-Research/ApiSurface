@@ -7,6 +7,7 @@
     <IsPublishable>false</IsPublishable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="RedirectOutput.fs" />
     <Compile Include="Sample.fs" />
     <Compile Include="TestDocCoverage.fs" />
     <Compile Include="TestSemanticVersioning.fs" />
@@ -18,11 +19,13 @@
     <Compile Include="TestVersionFile.fs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FsCheck" Version="2.16.6" />
     <PackageReference Include="FSharp.Core" Version="4.3.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="FsUnit" Version="3.4.0" />
     <PackageReference Include="NUnit" Version="3.13.0" />
+    <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="4.2.13" />
     <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
     <PackageReference Include="System.Net.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Xml.XDocument" Version="4.3.0" />
