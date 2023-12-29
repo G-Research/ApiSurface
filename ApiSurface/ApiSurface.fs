@@ -1,4 +1,4 @@
-﻿namespace ApiSurface
+namespace ApiSurface
 
 open System
 open System.IO.Abstractions
@@ -18,6 +18,7 @@ type internal Version =
 
 [<RequireQualifiedAccess>]
 module ApiSurface =
+    let private foo = "".EndsWith "blah"
 
     let private readBaseline (stream : Stream) : ApiSurface =
         use reader = new StreamReader (stream)
