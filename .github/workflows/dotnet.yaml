@@ -57,7 +57,7 @@ jobs:
       - name: Prepare .NET tools
         run: dotnet tool restore
       - name: Run Fantomas
-        run: ./hooks/pre-push
+        run: dotnet tool run fantomas --check .
 
   analyze-code:
     runs-on: ubuntu-latest
