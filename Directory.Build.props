@@ -11,6 +11,9 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
     <DebugType>embedded</DebugType>
+    <!-- improve F# compilation speed -->
+    <!-- FS0075: The command-line option 'parallelreferenceresolution' is for test purposes only -->
+    <OtherFlags>$(OtherFlags) --test:GraphBasedChecking --test:ParallelOptimization --test:ParallelIlxGen --warnaserror-:75 --nowarn:75 --parallelreferenceresolution</OtherFlags>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.6.133" PrivateAssets="all" />
