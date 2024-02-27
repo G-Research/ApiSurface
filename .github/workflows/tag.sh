@@ -21,6 +21,10 @@ case "$TAG" in
     echo "Error: TAG contains a newline; multiple packages found."
     exit 1
     ;;
+  "")
+      echo "Error: no TAG found; aborting."
+      exit 2
+      ;;
 esac
 
 # the empty target_commitish indicates the repo default branch
