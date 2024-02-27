@@ -10,10 +10,10 @@ run_or_echo() {
 
 export -f run_or_echo
 
-find . -maxdepth 1 -type f -name '*.nupkg' -exec bash -c 'tag=$(basename "$1" .nupkg); git tag "$tag"; run_or_echo git push origin "$tag"' shell {} \;
+find . -maxdepth 2 -type f -name '*.nupkg' -exec bash -c 'tag=$(basename "$1" .nupkg); git tag "$tag"; run_or_echo git push origin "$tag"' shell {} \;
 
 export TAG
-TAG=$(find . -maxdepth 1 -type f -name 'ApiSurface.*.nupkg' -exec sh -c 'basename "$1" .nupkg' shell {} \;)
+TAG=$(find . -maxdepth 2 -type f -name 'ApiSurface.*.nupkg' -exec sh -c 'basename "$1" .nupkg' shell {} \;)
 
 case "$TAG" in
   *"
