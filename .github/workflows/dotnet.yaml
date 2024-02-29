@@ -159,14 +159,20 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ !github.event.repository.fork && github.ref == 'refs/heads/main' }}
     needs: [all-required-checks-complete]
-    environment: main-deploy
-    permissions:
-      contents: write
+    environment: release
     steps:
+      - name: Generate app token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
       - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
       - name: Download NuGet artifact
         uses: actions/download-artifact@v4
       - name: Tag and release packages
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: bash .github/workflows/tag.sh
