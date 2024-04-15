@@ -1,5 +1,7 @@
 # ApiSurface
 
+![ApiSurface logo: a minimalistic cube, dimetric projection, composed of three stacked layers which are joined at some edges so as to suggest the letter S. The visible parts of the stacked layers inside the cube are light blue; the outer surface is dark blue. To the right is the text "ApiSurface" in the same dark blue as the cube.](logos/text-icon.png)
+
 This library provides several modules for ensuring the consistency and documentation coverage of an F# assembly's public API.
 It also integrates with [NerdBank.GitVersioning] to help you adhere to [Semantic Versioning](https://semver.org/) principles.
 
@@ -55,7 +57,7 @@ Along with monitoring a project's public API, this library can be used to encour
 When running the explicit test (see below) to update a project's SurfaceBaseline file, the test will also look for a `version.json` file (in the same location as the SurfaceBaseline file).
 If the `version.json` file is not found, an error will be raised.
 If the `version.json` file is found, the `version.json` file will be updated with a newer version using the following logic (from https://semver.org/):
-* MAJOR version is incremented when backwards incompatible API changes are detected (i.e. API memebers are changed or removed)
+* MAJOR version is incremented when backwards incompatible API changes are detected (i.e. API members are changed or removed)
 * MINOR version is incremented when added backwards-compatible functionality changes are detected (i.e. API members are added __only__)
 
 If no API changes are detected, the version will not be incremented by the test.

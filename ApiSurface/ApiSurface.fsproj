@@ -7,6 +7,7 @@
     <Description>ApiSurface is a library to help you ensure consistency and documentation coverage of your NuGet package's public API, and to help you adhere to SemVer.</Description>
     <Copyright>Copyright (c) G-Research 2022</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon-scaled.png</PackageIcon>
     <RepositoryUrl>https://github.com/G-Research/ApiSurface</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
@@ -32,6 +33,7 @@
     <EmbeddedResource Include="SurfaceBaseline.txt" />
     <EmbeddedResource Include="version.json" />
     <None Include="..\README.md" Pack="true" PackagePath="/" />
+    <None Include="..\logos\icon-scaled.png" Pack="true" PackagePath="/" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharp.Core" Version="4.3.4" />
