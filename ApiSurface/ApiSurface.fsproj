@@ -1,45 +1,45 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>ApiSurface</PackageId>
-    <Authors>G-Research</Authors>
-    <Description>ApiSurface is a library to help you ensure consistency and documentation coverage of your NuGet package's public API, and to help you adhere to SemVer.</Description>
-    <Copyright>Copyright (c) G-Research 2022</Copyright>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageIcon>icon-small.png</PackageIcon>
-    <RepositoryUrl>https://github.com/G-Research/ApiSurface</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageTags>semver;packaging;documentation;version</PackageTags>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Type.fs" />
-    <Compile Include="SurfaceComparison.fsi" />
-    <Compile Include="SurfaceComparison.fs" />
-    <Compile Include="DocCoverage.fsi" />
-    <Compile Include="DocCoverage.fs" />
-    <Compile Include="ApiMember.fsi" />
-    <Compile Include="ApiMember.fs" />
-    <Compile Include="PublicType.fsi" />
-    <Compile Include="PublicType.fs" />
-    <Compile Include="Assembly.fs" />
-    <Compile Include="VersionFile.fs" />
-    <Compile Include="ApiSurface.fsi" />
-    <Compile Include="ApiSurface.fs" />
-    <Compile Include="MonotonicVersion.fsi" />
-    <Compile Include="MonotonicVersion.fs" />
-    <EmbeddedResource Include="SurfaceBaseline.txt" />
-    <EmbeddedResource Include="version.json" />
-    <None Include="..\README.md" Pack="true" PackagePath="/" />
-    <None Include="..\logos\icon-small.png" Pack="true" PackagePath="/" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="FSharp.Core" Version="4.3.4" />
-    <PackageReference Include="System.Text.Json" Version="6.0.0" />
-    <PackageReference Include="NuGet.Packaging" Version="6.9.1" />
-    <PackageReference Include="NuGet.Protocol" Version="6.7.0" />
-    <PackageReference Include="System.IO.Abstractions" Version="4.2.13" />
-  </ItemGroup>
-</Project>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>ApiSurface</PackageId>
+    <Authors>G-Research</Authors>
+    <Description>ApiSurface is a library to help you ensure consistency and documentation coverage of your NuGet package's public API, and to help you adhere to SemVer.</Description>
+    <Copyright>Copyright (c) G-Research 2022</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon-small.png</PackageIcon>
+    <RepositoryUrl>https://github.com/G-Research/ApiSurface</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageTags>semver;packaging;documentation;version</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Type.fs" />
+    <Compile Include="SurfaceComparison.fsi" />
+    <Compile Include="SurfaceComparison.fs" />
+    <Compile Include="DocCoverage.fsi" />
+    <Compile Include="DocCoverage.fs" />
+    <Compile Include="ApiMember.fsi" />
+    <Compile Include="ApiMember.fs" />
+    <Compile Include="PublicType.fsi" />
+    <Compile Include="PublicType.fs" />
+    <Compile Include="Assembly.fs" />
+    <Compile Include="VersionFile.fs" />
+    <Compile Include="ApiSurface.fsi" />
+    <Compile Include="ApiSurface.fs" />
+    <Compile Include="MonotonicVersion.fsi" />
+    <Compile Include="MonotonicVersion.fs" />
+    <EmbeddedResource Include="SurfaceBaseline.txt" />
+    <EmbeddedResource Include="version.json" />
+    <None Include="..\README.md" Pack="true" PackagePath="/" />
+    <None Include="..\logos\icon-small.png" Pack="true" PackagePath="/" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FSharp.Core" Version="4.3.4" />
+    <PackageReference Include="System.Text.Json" Version="6.0.0" />
+    <PackageReference Include="NuGet.Packaging" Version="6.9.1" />
+    <PackageReference Include="NuGet.Protocol" Version="6.7.0" />
+    <PackageReference Include="System.IO.Abstractions" Version="4.2.13" />
+  </ItemGroup>
+</Project>
