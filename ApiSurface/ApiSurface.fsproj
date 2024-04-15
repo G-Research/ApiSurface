@@ -7,7 +7,7 @@
     <Description>ApiSurface is a library to help you ensure consistency and documentation coverage of your NuGet package's public API, and to help you adhere to SemVer.</Description>
     <Copyright>Copyright (c) G-Research 2022</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageIcon>icon-scaled.png</PackageIcon>
+    <PackageIcon>icon-small.png</PackageIcon>
     <RepositoryUrl>https://github.com/G-Research/ApiSurface</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
