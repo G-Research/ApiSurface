@@ -1,6 +1,10 @@
 # ApiSurface
 
-<img src="logos/text-white.png" alt="ApiSurface logo: a minimalistic cube, dimetric projection, composed of three stacked layers which are joined at some edges so as to suggest the letter S. The visible parts of the stacked layers inside the cube are light blue; the outer surface is white. To the right is the text 'ApiSurface' in the same colour as the cube's exterior." style="height:200px;object-fit:cover"/>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="logos/text-white.png">
+  <source media="(prefers-color-scheme: light)" srcset="logos/text-darkblue.png">
+  <img alt="ApiSurface logo: a minimalistic cube, dimetric projection, composed of three stacked layers which are joined at some edges so as to suggest the letter S. The visible parts of the stacked layers inside the cube are light blue; the outer surface is white in dark mode, or dark blue in light mode. To the right is the text 'ApiSurface' in the same colour as the cube's exterior." src="logos/text-darkblue.png">
+</picture>
 
 This library provides several modules for ensuring the consistency and documentation coverage of an F# assembly's public API.
 It also integrates with [NerdBank.GitVersioning] to help you adhere to [Semantic Versioning](https://semver.org/) principles.
