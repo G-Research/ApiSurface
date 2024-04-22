@@ -15,3 +15,5 @@ updates:
       - dependency-name: "FSharp.Core"
       # Target the lowest compatible version of System.Text.Json
       - dependency-name: "System.Text.Json"
+      # Some G-Research internal consumers use an old version of System.IO.Abstractions
+      - dependency-name: "System.IO.Abstractions"
