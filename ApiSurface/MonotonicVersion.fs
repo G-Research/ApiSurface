@@ -1,4 +1,4 @@
-﻿namespace ApiSurface
+namespace ApiSurface
 
 open System.IO
 open System.Reflection
@@ -26,13 +26,7 @@ module MonotonicVersion =
         let latestVersion = NuGetVersion (latestVersion.Major, latestVersion.Minor, 0)
         let latestVersionStr = latestVersion.Version.ToString 2
 
-        if currentVersion >= latestVersion then
-            printfn
-                "Version of '%s' specified in version.json (%O) is >= the latest version in the NuGet repository (%s)"
-                packageId
-                currentVersion
-                latestVersionStr
-        else
+        if currentVersion < latestVersion then
             [
                 sprintf
                     "Version of '%s' specified in version.json (%O) is less than the latest version in the NuGet repository (%s)"
@@ -59,16 +53,7 @@ module MonotonicVersion =
         let latestVersion = NuGetVersion (latestVersion.Major, latestVersion.Minor, 0)
         let latestVersionStr = latestVersion.Version.ToString 2
 
-        let acceptableMinorIncrease = minorDiff <= 1 && majorDiff = 0
-        let acceptableMajorIncrease = majorDiff <= 1 && minorDiff <= 0
-
-        if acceptableMajorIncrease || acceptableMinorIncrease then
-            printfn
-                "Version of '%s' specified in version.json (%O) is >= the latest version in the NuGet repository by an acceptable amount (%s)"
-                packageId
-                currentVersion
-                latestVersionStr
-        else
+        if majorDiff > 1 || minorDiff > 1 || (minorDiff > 0 && majorDiff <> 0) then
             [
                 sprintf
                     "Version of '%s' specified in version.json (%O) is larger than the latest version in the NuGet repository (%s) by an unacceptable amount"
@@ -84,7 +69,7 @@ module MonotonicVersion =
 
     /// Validate the specifically-named embedded resource that is a version.json file.
     [<CompiledName "ValidateResource">]
-    let validateResource (resourceName : string) (assembly : Assembly) (packageId : string) =
+    let validateResource (resourceName : string) (assembly : Assembly) (packageId : string) : unit =
         let resource = Assembly.tryReadEmbeddedResource assembly resourceName
 
         match resource with
@@ -104,11 +89,6 @@ module MonotonicVersion =
             SettingsUtility.GetEnabledSources settings
             |> Seq.map (fun s -> SourceRepository (s, Repository.Provider.GetCoreV3 ()))
             |> Array.ofSeq
-
-        repos
-        |> Seq.map (fun x -> x.PackageSource.SourceUri.ToString ())
-        |> String.concat "\n"
-        |> printfn "Using the following NuGet repositories:\n%s"
 
         let versions =
             repos
