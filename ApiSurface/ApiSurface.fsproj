@@ -12,10 +12,6 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageTags>semver;packaging;documentation;version</PackageTags>
-    <!-- "Package %s has a known high severity vulnerability" -->
-    <!-- We're a library; it's on our consumers to make sure they
-         are using nonvulnerable dependencies if they care.-->
-    <NoWarn>NU1903</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
@@ -41,7 +37,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharp.Core" Version="4.3.4" />
-    <PackageReference Include="System.Text.Json" Version="7.0.3" />
+    <!-- "Package %s has a known high severity vulnerability" -->
+    <!-- We're a library; it's on our consumers to make sure they
+         are using nonvulnerable dependencies if they care.
+         System.Text.Json is highly backward-compatible. -->
+    <PackageReference Include="System.Text.Json" Version="7.0.3" NoWarn="%(NoWarn);NU1903" />
     <PackageReference Include="NuGet.Packaging" Version="6.10.1" />
     <PackageReference Include="NuGet.Protocol" Version="6.10.1" />
     <PackageReference Include="System.IO.Abstractions" Version="4.2.13" />
