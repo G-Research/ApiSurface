@@ -76,7 +76,7 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore ./ApiSurface/ApiSurface.fsproj
       - name: Run analyzers
-        run: dotnet fsharp-analyzers --project ./ApiSurface/ApiSurface.fsproj --analyzers-path ./.analyzerpackages/g-research.fsharp.analyzers/*/ --verbose --report ./analysis.sarif --fail-on-warnings GRA-STRING-001 GRA-STRING-002 GRA-STRING-003 GRA-UNIONCASE-001
+        run: dotnet fsharp-analyzers --project ./ApiSurface/ApiSurface.fsproj --analyzers-path ./.analyzerpackages/g-research.fsharp.analyzers/*/ --verbosity diag --report ./analysis.sarif --treat-as-error GRA-STRING-001 GRA-STRING-002 GRA-STRING-003 GRA-UNIONCASE-001
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
         with:
