@@ -12,6 +12,10 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageTags>semver;packaging;documentation;version</PackageTags>
+    <!-- "Package %s has a known high severity vulnerability" -->
+    <!-- We're a library; it's on our consumers to make sure they
+         are using nonvulnerable dependencies if they care.-->
+    <NoWarn>NU1903</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
