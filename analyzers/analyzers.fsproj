@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageDownload Include="G-Research.FSharp.Analyzers" Version="[0.1.5]" />
+    <PackageDownload Include="G-Research.FSharp.Analyzers" Version="[0.10.0]" />
   </ItemGroup>
 
 </Project>
