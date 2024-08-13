@@ -19,6 +19,7 @@
     <Compile Include="TestVersionFile.fs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Update="System.Text.Json" Version="8.0.4" />
     <PackageReference Include="FsCheck" Version="2.16.6" />
     <PackageReference Include="FSharp.Core" Version="4.3.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
