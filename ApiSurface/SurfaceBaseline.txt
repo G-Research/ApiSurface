@@ -1,6 +1,7 @@
 ApiSurface.ApiMember inherit obj, implements ApiSurface.ApiMember System.IEquatable, System.Collections.IStructuralEquatable
 ApiSurface.ApiMember..ctor [constructor]: (string, ApiSurface.MemberTypeInfo, System.Type, bool)
 ApiSurface.ApiMember.DeclaringType [property]: [read-only] System.Type
+ApiSurface.ApiMember.Equals [method]: (ApiSurface.ApiMember, System.Collections.IEqualityComparer) -> bool
 ApiSurface.ApiMember.get_DeclaringType [method]: unit -> System.Type
 ApiSurface.ApiMember.get_IsStatic [method]: unit -> bool
 ApiSurface.ApiMember.get_MemberTypeInfo [method]: unit -> ApiSurface.MemberTypeInfo
@@ -12,6 +13,7 @@ ApiSurface.ApiMemberModule inherit obj
 ApiSurface.ApiMemberModule.FromMemberInfo [static method]: System.Reflection.MemberInfo -> ApiSurface.ApiMember
 ApiSurface.ApiMemberModule.Print [static method]: ApiSurface.ApiMember -> string
 ApiSurface.ApiSurface inherit obj, implements ApiSurface.ApiSurface System.IEquatable, System.Collections.IStructuralEquatable, ApiSurface.ApiSurface System.IComparable, System.IComparable, System.Collections.IStructuralComparable
+ApiSurface.ApiSurface.Equals [method]: (ApiSurface.ApiSurface, System.Collections.IEqualityComparer) -> bool
 ApiSurface.ApiSurfaceModule inherit obj
 ApiSurface.ApiSurfaceModule.AssertIdentical [static method]: System.Reflection.Assembly -> unit
 ApiSurface.ApiSurfaceModule.Compare [static method]: ApiSurface.ApiSurface -> ApiSurface.ApiSurface -> ApiSurface.SurfaceComparison
@@ -55,6 +57,7 @@ ApiSurface.MemberTypeInfo+Tags.Event [static field]: int = 4
 ApiSurface.MemberTypeInfo+Tags.Field [static field]: int = 3
 ApiSurface.MemberTypeInfo+Tags.Method [static field]: int = 1
 ApiSurface.MemberTypeInfo+Tags.Property [static field]: int = 2
+ApiSurface.MemberTypeInfo.Equals [method]: (ApiSurface.MemberTypeInfo, System.Collections.IEqualityComparer) -> bool
 ApiSurface.MemberTypeInfo.Event [static property]: [read-only] ApiSurface.MemberTypeInfo
 ApiSurface.MemberTypeInfo.get_Event [static method]: unit -> ApiSurface.MemberTypeInfo
 ApiSurface.MemberTypeInfo.get_IsConstructor [method]: unit -> bool
@@ -79,6 +82,7 @@ ApiSurface.MonotonicVersion.ValidateResource [static method]: string -> System.R
 ApiSurface.PublicType inherit obj, implements ApiSurface.PublicType System.IEquatable, System.Collections.IStructuralEquatable
 ApiSurface.PublicType..ctor [constructor]: (string, System.Type option, System.Type list, ApiSurface.ApiMember list, System.Type)
 ApiSurface.PublicType.BaseClass [property]: [read-only] System.Type option
+ApiSurface.PublicType.Equals [method]: (ApiSurface.PublicType, System.Collections.IEqualityComparer) -> bool
 ApiSurface.PublicType.FullName [property]: [read-only] string
 ApiSurface.PublicType.get_BaseClass [method]: unit -> System.Type option
 ApiSurface.PublicType.get_FullName [method]: unit -> string
@@ -99,6 +103,7 @@ ApiSurface.SurfaceComparisonModule.AssertNoneRemoved [static method]: bool -> Ap
 ApiSurface.SurfaceComparisonModule.RemovedSymbols [static method]: ApiSurface.SurfaceComparison -> string list
 ApiSurface.VersionFile inherit obj, implements ApiSurface.VersionFile System.IEquatable, System.Collections.IStructuralEquatable, ApiSurface.VersionFile System.IComparable, System.IComparable, System.Collections.IStructuralComparable
 ApiSurface.VersionFile..ctor [constructor]: (string, string list, string list option)
+ApiSurface.VersionFile.Equals [method]: (ApiSurface.VersionFile, System.Collections.IEqualityComparer) -> bool
 ApiSurface.VersionFile.get_PathFilters [method]: unit -> string list option
 ApiSurface.VersionFile.get_PublicReleaseRefSpec [method]: unit -> string list
 ApiSurface.VersionFile.get_Version [method]: unit -> string

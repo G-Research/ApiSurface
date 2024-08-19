@@ -1,7 +1,7 @@
 namespace ApiSurface.Test
 
 open NUnit.Framework
-open FsUnit
+open FsUnitTyped
 open ApiSurface
 
 [<TestFixture>]
@@ -23,7 +23,7 @@ module TestDocCoverage =
             |> String.concat "\n"
             |> failwithf "Unexpectedly received members: %s"
 
-        Assert.IsEmpty expectedButAbsent
+        expectedButAbsent |> shouldBeEmpty
 
     [<Test>]
     let ``Test ofAssemblyXml`` () =
@@ -32,7 +32,7 @@ module TestDocCoverage =
 
         let actual = ofXml.Split '\n' |> Set.ofArray
 
-        CollectionAssert.AreEqual (expected, actual)
+        actual |> shouldEqual expected
 
     [<Test>]
     let ``Test comparing with identical coverage`` () =
@@ -65,11 +65,13 @@ module TestDocCoverage =
             </doc>
             """
 
-        fun () ->
-            DocCoverage.ofXml "left.xml" left
-            |> DocCoverage.compare (DocCoverage.ofXml "right.xml" right)
-            |> SurfaceComparison.assertIdentical
-        |> should
-            (throwWithMessage
-                "Unexpected difference.\n\nThe following 1 member(s) are only in 'left.xml':\n  + F:ApiSurface.DocumentationSample.Class1.myField\n\nThe following 1 member(s) are only in 'right.xml':\n  - P:ApiSurface.DocumentationSample.Class1.X\n")
-            typeof<exn>
+        let exc =
+            Assert.Throws<exn> (fun () ->
+                DocCoverage.ofXml "left.xml" left
+                |> DocCoverage.compare (DocCoverage.ofXml "right.xml" right)
+                |> SurfaceComparison.assertIdentical
+            )
+
+        exc.Message
+        |> shouldEqual
+            "Unexpected difference.\n\nThe following 1 member(s) are only in 'left.xml':\n  + F:ApiSurface.DocumentationSample.Class1.myField\n\nThe following 1 member(s) are only in 'right.xml':\n  - P:ApiSurface.DocumentationSample.Class1.X\n"
