@@ -20,11 +20,7 @@ jobs:
           - macOS-latest
           - windows-latest
         dotnet:
-          - { sdk: 6.0.x, framework: net6.0 }
           - { sdk: 8.0.x, framework: net8.0 }
-        include:
-          - os: windows-latest
-            dotnet: { sdk: 6.0.x, framework: net481 }
 
     runs-on: ${{matrix.os}}
 
@@ -48,10 +44,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup .NET SDK v6.0.x
+      - name: Setup .NET SDK v8.0.x
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 8.0.x
       - name: Prepare .NET tools
         run: dotnet tool restore
       - name: Run Fantomas
@@ -64,10 +60,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Setup .NET SDK v6.0.x
+      - name: Setup .NET SDK v8.0.x
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 8.0.x
       - name: Prepare .NET tools
         run: dotnet tool restore
       - name: Prepare analyzers
@@ -88,10 +84,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # so that NerdBank.GitVersioning has access to history
-      - name: Setup .NET SDK v6.0.x
+      - name: Setup .NET SDK v8.0.x
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 8.0.x
       - name: Build
         run: dotnet build ApiSurface/ApiSurface.fsproj --configuration Release
       - name: Pack
