@@ -40,7 +40,7 @@ module ApiSurface =
             "SurfaceBaseline-NetFramework.txt"
         else
             // e.g. "SurfaceBaseline-Net5.txt"
-            let frameworkNumber = Regex("^\\.NET ([0-9]+)\.").Match desc
+            let frameworkNumber = Regex(@"^\.NET ([0-9]+)\.").Match desc
 
             if frameworkNumber.Success then
                 sprintf "SurfaceBaseline-Net%s.txt" frameworkNumber.Groups.[0].Value
