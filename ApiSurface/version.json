@@ -3,5 +3,17 @@
   "publicReleaseRefSpec": [
     "^refs/heads/main$"
   ],
-  "pathFilters": null
+  "pathFilters": [
+    "/",
+    ":!/hooks",
+    ":!/.editorconfig",
+    ":!/.github",
+    ":!/.config",
+    ":!/analyzers",
+    ":!/ApiSurface/Test",
+    ":!/ApiSurface/SampleAssembly",
+    ":!/ApiSurface/DocumentationSample",
+    ":!/ApiSurface/.git-blame-ignore-revs",
+    ":!/ApiSurface/CONTRIBUTING.md"
+  ]
 }
