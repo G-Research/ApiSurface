@@ -1,7 +1,7 @@
-﻿namespace ApiSurface.Test
+namespace ApiSurface.Test
 
 open NUnit.Framework
-open FsUnit
+open FsUnitTyped
 open ApiSurface
 
 [<TestFixture>]
@@ -13,18 +13,16 @@ module TestApiSurface =
     let ``Test ofAssembly`` () =
 
         let (ApiSurface actual) = sampleAssembly |> ApiSurface.ofAssembly
+        let actual = Set.ofList actual
 
         let expected = Sample.publicSurface
 
-        CollectionAssert.AreEqual (expected, actual)
+        actual |> shouldEqual expected
 
     [<Test>]
     let ``Test toString`` () =
 
-        [ "Foo" ; "Bar" ]
-        |> ApiSurface
-        |> ApiSurface.toString
-        |> should equal "Foo\nBar"
+        [ "Foo" ; "Bar" ] |> ApiSurface |> ApiSurface.toString |> shouldEqual "Foo\nBar"
 
     [<Test>]
     let ``Test compare for identical surfaces`` () =
@@ -45,35 +43,40 @@ module TestApiSurface =
     [<Test>]
     let ``Test compare for different surfaces (not in baseline)`` () =
 
-        fun () ->
-            [ "Bar" ; "Foo" ]
-            |> ApiSurface
-            |> ApiSurface.compare (ApiSurface [ "Foo" ])
-            |> SurfaceComparison.assertIdentical
-        |> should
-            (throwWithMessage
-                "Unexpected difference.\n\nThe following 1 member(s) have been added (i.e. are NOT present in the baseline):\n  + Bar\n")
-            typeof<exn>
+        let exc =
+            Assert.Throws<exn> (fun () ->
+                [ "Bar" ; "Foo" ]
+                |> ApiSurface
+                |> ApiSurface.compare (ApiSurface [ "Foo" ])
+                |> SurfaceComparison.assertIdentical
+            )
+
+        exc.Message
+        |> shouldEqual
+            "Unexpected difference.\n\nThe following 1 member(s) have been added (i.e. are NOT present in the baseline):\n  + Bar\n"
 
     [<Test>]
     let ``Test compare for different surfaces (not in target)`` () =
 
-        fun () ->
-            [ "Foo" ]
-            |> ApiSurface
-            |> ApiSurface.compare (ApiSurface [ "Foo" ; "Bar" ])
-            |> SurfaceComparison.assertIdentical
-        |> should
-            (throwWithMessage
-                "Unexpected difference.\n\nThe following 1 member(s) have been removed (i.e. are present in the baseline):\n  - Bar\n")
-            typeof<exn>
+        let exc =
+            Assert.Throws<exn> (fun () ->
+                [ "Foo" ]
+                |> ApiSurface
+                |> ApiSurface.compare (ApiSurface [ "Foo" ; "Bar" ])
+                |> SurfaceComparison.assertIdentical
+            )
+
+        exc.Message
+        |> shouldEqual
+            "Unexpected difference.\n\nThe following 1 member(s) have been removed (i.e. are present in the baseline):\n  - Bar\n"
 
     [<Test>]
     let ``Test ofAssemblyBaseline`` () =
 
         let (ApiSurface actual) = sampleAssembly |> ApiSurface.ofAssemblyBaseline
-        let expected = Sample.publicSurface @ [ "Bar" ; "Foo" ]
-        CollectionAssert.AreEqual (expected, actual)
+        let actual = Set.ofList actual
+        let expected = Sample.publicSurface |> Set.add "Bar" |> Set.add "Foo"
+        actual |> shouldEqual expected
 
     [<Test>]
     let ``Test ofAssemblyBaselineWithExplicitFilename`` () =
@@ -82,5 +85,7 @@ module TestApiSurface =
             sampleAssembly
             |> ApiSurface.ofAssemblyBaselineWithExplicitResourceName "SurfaceBaseline.txt"
 
-        let expected = Sample.publicSurface @ [ "Bar" ; "Foo" ]
-        CollectionAssert.AreEqual (expected, actual)
+        let actual = Set.ofList actual
+
+        let expected = Sample.publicSurface |> Set.add "Bar" |> Set.add "Foo"
+        actual |> shouldEqual expected

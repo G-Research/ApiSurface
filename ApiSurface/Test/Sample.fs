@@ -3,7 +3,7 @@ namespace ApiSurface.Test
 [<RequireQualifiedAccess>]
 module Sample =
 
-    let publicSurface =
+    let publicSurface : Set<string> =
         [
             "ApiSurface.SampleAssembly.Class1 inherit obj"
             "ApiSurface.SampleAssembly.Class1..ctor [constructor]: int"
@@ -39,6 +39,7 @@ module Sample =
             "ApiSurface.SampleAssembly.SampleDU+Tags inherit obj"
             "ApiSurface.SampleAssembly.SampleDU+Tags.Bar [static field]: int = 1"
             "ApiSurface.SampleAssembly.SampleDU+Tags.Foo [static field]: int = 0"
+            "ApiSurface.SampleAssembly.SampleDU.Equals [method]: (ApiSurface.SampleAssembly.SampleDU, System.Collections.IEqualityComparer) -> bool"
             "ApiSurface.SampleAssembly.SampleDU.Foo [static property]: [read-only] ApiSurface.SampleAssembly.SampleDU"
             "ApiSurface.SampleAssembly.SampleDU.get_Foo [static method]: unit -> ApiSurface.SampleAssembly.SampleDU"
             "ApiSurface.SampleAssembly.SampleDU.get_IsBar [method]: unit -> bool"
@@ -56,6 +57,7 @@ module Sample =
             "ApiSurface.SampleAssembly.ValueTupleOperations inherit obj"
             "ApiSurface.SampleAssembly.ValueTupleOperations.fst [static method]: struct ('a * 'b) -> 'a"
         ]
+        |> Set.ofList
 
     let allIncludingInternal =
         [
