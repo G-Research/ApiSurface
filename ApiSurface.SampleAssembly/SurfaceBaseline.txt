@@ -32,6 +32,7 @@ ApiSurface.SampleAssembly.SampleDU+Bar.Item [property]: [read-only] int
 ApiSurface.SampleAssembly.SampleDU+Tags inherit obj
 ApiSurface.SampleAssembly.SampleDU+Tags.Bar [static field]: int = 1
 ApiSurface.SampleAssembly.SampleDU+Tags.Foo [static field]: int = 0
+ApiSurface.SampleAssembly.SampleDU.Equals [method]: (ApiSurface.SampleAssembly.SampleDU, System.Collections.IEqualityComparer) -> bool
 ApiSurface.SampleAssembly.SampleDU.Foo [static property]: [read-only] ApiSurface.SampleAssembly.SampleDU
 ApiSurface.SampleAssembly.SampleDU.get_Foo [static method]: unit -> ApiSurface.SampleAssembly.SampleDU
 ApiSurface.SampleAssembly.SampleDU.get_IsBar [method]: unit -> bool
