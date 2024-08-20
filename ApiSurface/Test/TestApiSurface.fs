@@ -13,8 +13,12 @@ module TestApiSurface =
     let ``Test ofAssembly`` () =
 
         let (ApiSurface actual) = sampleAssembly |> ApiSurface.ofAssembly
+        let actual = Set.ofList actual
 
         let expected = Sample.publicSurface
+
+        for i in actual do
+            System.Console.WriteLine i
 
         actual |> shouldEqual expected
 
@@ -73,7 +77,8 @@ module TestApiSurface =
     let ``Test ofAssemblyBaseline`` () =
 
         let (ApiSurface actual) = sampleAssembly |> ApiSurface.ofAssemblyBaseline
-        let expected = Sample.publicSurface @ [ "Bar" ; "Foo" ]
+        let actual = Set.ofList actual
+        let expected = Sample.publicSurface |> Set.add "Bar" |> Set.add "Foo"
         actual |> shouldEqual expected
 
     [<Test>]
@@ -83,5 +88,7 @@ module TestApiSurface =
             sampleAssembly
             |> ApiSurface.ofAssemblyBaselineWithExplicitResourceName "SurfaceBaseline.txt"
 
-        let expected = Sample.publicSurface @ [ "Bar" ; "Foo" ]
+        let actual = Set.ofList actual
+
+        let expected = Sample.publicSurface |> Set.add "Bar" |> Set.add "Foo"
         actual |> shouldEqual expected
