@@ -43,7 +43,7 @@
          System.Text.Json is highly backward-compatible. -->
     <PackageReference Include="System.Text.Json" Version="7.0.3" NoWarn="%(NoWarn);NU1903" />
     <PackageReference Include="NuGet.Packaging" Version="6.11.1" />
-    <PackageReference Include="NuGet.Protocol" Version="6.11.0" />
+    <PackageReference Include="NuGet.Protocol" Version="6.11.1" />
     <PackageReference Include="System.IO.Abstractions" Version="4.2.13" />
   </ItemGroup>
 </Project>
