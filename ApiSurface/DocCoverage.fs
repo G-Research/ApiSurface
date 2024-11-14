@@ -383,4 +383,4 @@ module DocCoverage =
     let assertFullyDocumented (assembly : Assembly) =
         ofAssemblyXml assembly
         |> compare (ofAssemblySurface assembly)
-        |> SurfaceComparison.assertNoneRemoved true
+        |> SurfaceComparison.assertNoneRemoved false
