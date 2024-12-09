@@ -6,6 +6,8 @@
   "pathFilters": [
     ":/",
     ":^/ApiSurface/Test/",
+    ":^/ApiSurface.SampleAssembly/",
+    ":^/ApiSurface.DocumentationSample/",
     ":^/.github/",
     ":^/.config/",
     ":^/hooks/",
