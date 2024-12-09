@@ -1,4 +1,4 @@
-﻿namespace ApiSurface
+namespace ApiSurface
 
 open System
 open System.IO.Abstractions
@@ -255,8 +255,8 @@ module ApiSurface =
         // on first run to make SurfaceBaseline.txt rather than the most specific possible.
         let baselinePath =
             possibleBaselineResources
-            |> Seq.tryFind File.Exists
-            |> Option.defaultValue (Seq.last possibleBaselineResources)
+            |> List.tryFind File.Exists
+            |> Option.defaultValue (List.last possibleBaselineResources)
 
         let versionFile =
             match versionFiles with

@@ -68,7 +68,7 @@ module ApiMember =
             let typeString = fieldType |> Type.toFullName
 
             if fieldInfo.IsLiteral then
-                let value = m.DeclaringType.GetField(m.Name).GetValue null |> string
+                let value = m.DeclaringType.GetField(m.Name).GetValue null |> string<obj>
 
                 // Don't print `= ` for empty strings, as many editors/Git hooks trim trailing whitespace
                 if value = "" then
