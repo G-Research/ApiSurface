@@ -151,6 +151,7 @@ module Sample =
             "P:ApiSurface.DocumentationSample.ThisAssembly.AssemblyName"
             "P:ApiSurface.DocumentationSample.ThisAssembly.AssemblyTitle"
             "P:ApiSurface.DocumentationSample.ThisAssembly.AssemblyVersion"
+            "P:ApiSurface.DocumentationSample.ThisAssembly.GitCommitAuthorDate"
             "P:ApiSurface.DocumentationSample.ThisAssembly.GitCommitDate"
             "P:ApiSurface.DocumentationSample.ThisAssembly.GitCommitId"
             "P:ApiSurface.DocumentationSample.ThisAssembly.IsPrerelease"
