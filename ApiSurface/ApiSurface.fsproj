@@ -41,9 +41,9 @@
     <!-- We're a library; it's on our consumers to make sure they
          are using nonvulnerable dependencies if they care.
          System.Text.Json is highly backward-compatible. -->
-    <PackageReference Include="System.Text.Json" Version="8.0.4" NoWarn="%(NoWarn);NU1903" />
-    <PackageReference Include="NuGet.Packaging" Version="6.12.1" />
-    <PackageReference Include="NuGet.Protocol" Version="6.12.1" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" NoWarn="%(NoWarn);NU1903" />
+    <PackageReference Include="NuGet.Packaging" Version="6.13.1" />
+    <PackageReference Include="NuGet.Protocol" Version="6.13.1" />
     <PackageReference Include="System.IO.Abstractions" Version="4.2.13" />
   </ItemGroup>
 </Project>
