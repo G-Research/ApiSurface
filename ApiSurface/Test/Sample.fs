@@ -59,7 +59,7 @@ module Sample =
         ]
         |> Set.ofList
 
-    let allIncludingInternal =
+    let allIncludingInternalNoDuCases =
         [
             "T:<StartupCode$ApiSurface-DocumentationSample>.$.NETStandard\,Version=v2.0.AssemblyAttributes"
             "T:<StartupCode$ApiSurface-DocumentationSample>.$ApiSurface.DocumentationSample.AssemblyInfo"
@@ -72,14 +72,8 @@ module Sample =
             "M:ApiSurface.DocumentationSample.ConsumingModule.somethingElse``2(ApiSurface.DocumentationSample.SomeGenericType{``0,``1},``1)"
             "M:ApiSurface.DocumentationSample.ConsumingModule.somethingGeneric``2"
             "T:ApiSurface.DocumentationSample.DuWithInternalConstructors"
-            "T:ApiSurface.DocumentationSample.DuWithInternalConstructors.Bar"
-            "T:ApiSurface.DocumentationSample.DuWithInternalConstructors.Foo"
             "T:ApiSurface.DocumentationSample.DuWithPrivateConstructors"
-            "T:ApiSurface.DocumentationSample.DuWithPrivateConstructors.Bar"
-            "T:ApiSurface.DocumentationSample.DuWithPrivateConstructors.Foo"
             "T:ApiSurface.DocumentationSample.EnumLikeDu"
-            "T:ApiSurface.DocumentationSample.EnumLikeDu.Bar"
-            "T:ApiSurface.DocumentationSample.EnumLikeDu.Foo"
             "T:ApiSurface.DocumentationSample.GenericClassWithMethod`1"
             "M:ApiSurface.DocumentationSample.GenericClassWithMethod`1.ArrayByRef(`0[]@)"
             "M:ApiSurface.DocumentationSample.GenericClassWithMethod`1.IEnumerableByRef(System.Collections.Generic.IEnumerable{`0}@)"
@@ -95,22 +89,15 @@ module Sample =
             "P:ApiSurface.DocumentationSample.IndexedProperties`2.Overloaded(System.String,System.Int32)"
             "T:ApiSurface.DocumentationSample.ModuleWithType"
             "T:ApiSurface.DocumentationSample.ModuleWithType.DU"
-            "T:ApiSurface.DocumentationSample.ModuleWithType.DU.Case1"
-            "T:ApiSurface.DocumentationSample.ModuleWithType.DU.Case2"
             "T:ApiSurface.DocumentationSample.ModuleWithType.NestedClass`1"
             "M:ApiSurface.DocumentationSample.ModuleWithType.NestedClass`1.MethodOnANestedClass(ApiSurface.DocumentationSample.ModuleWithType.NestedClass{`0})"
             "M:ApiSurface.DocumentationSample.ModuleWithType.thing``1(ApiSurface.DocumentationSample.ModuleWithType.DU)"
             "T:ApiSurface.DocumentationSample.MomentActionsId"
-            "T:ApiSurface.DocumentationSample.MomentActionsId.MomentActionsIdConstructor"
             "T:ApiSurface.DocumentationSample.MyDu"
-            "T:ApiSurface.DocumentationSample.MyDu.AnotherCase"
-            "T:ApiSurface.DocumentationSample.MyDu.Fieldless"
-            "T:ApiSurface.DocumentationSample.MyDu.SomeCase"
             "P:ApiSurface.DocumentationSample.MyDu.SomeProperty"
             "P:ApiSurface.DocumentationSample.MyDuModule.x"
             "P:ApiSurface.DocumentationSample.MyGenericType.myValue"
             "T:ApiSurface.DocumentationSample.MyGenericType`1"
-            "T:ApiSurface.DocumentationSample.MyGenericType`1.SomeCase"
             "T:ApiSurface.DocumentationSample.MyModule"
             "P:ApiSurface.DocumentationSample.MyModule.myValue"
             // Note, for example, that an internal method is visible in the toString. However, it will be ignored
@@ -122,10 +109,7 @@ module Sample =
             "T:ApiSurface.DocumentationSample.MyOperators"
             "M:ApiSurface.DocumentationSample.MyOperators.op_TwiddleTwiddle(System.Int32)"
             "T:ApiSurface.DocumentationSample.MyTinyType"
-            "T:ApiSurface.DocumentationSample.MyTinyType.MyTinyType"
             "T:ApiSurface.DocumentationSample.PrivateDu"
-            "T:ApiSurface.DocumentationSample.PrivateDu.Bar"
-            "T:ApiSurface.DocumentationSample.PrivateDu.Foo"
             "T:ApiSurface.DocumentationSample.PrivateRecord"
             "P:ApiSurface.DocumentationSample.PrivateRecord.PrivateField"
             "T:ApiSurface.DocumentationSample.SomeActivePatterns"
@@ -134,7 +118,6 @@ module Sample =
             "T:ApiSurface.DocumentationSample.SomeExceptionTypeWithArgs"
             "T:ApiSurface.DocumentationSample.SomeGenericType`2"
             "M:ApiSurface.DocumentationSample.SomeGenericType`2.SomeGenericMethod``1(`0,ApiSurface.DocumentationSample.SomeGenericType{`0,``0})"
-            "T:ApiSurface.DocumentationSample.SomeGenericType`2.SomeGenericType"
             "T:ApiSurface.DocumentationSample.SomeModule"
             "P:ApiSurface.DocumentationSample.SomeModule.Bar"
             "P:ApiSurface.DocumentationSample.SomeModule.Foo"
@@ -160,6 +143,30 @@ module Sample =
             "T:ApiSurface.DocumentationSample.TypeWithMultipleConstructors"
         ]
         |> Set.ofList
+
+    let duCaseTypes =
+        [
+            "T:ApiSurface.DocumentationSample.SomeGenericType`2.SomeGenericType"
+            "T:ApiSurface.DocumentationSample.MyGenericType`1.SomeCase"
+            "T:ApiSurface.DocumentationSample.MyTinyType.MyTinyType"
+            "T:ApiSurface.DocumentationSample.PrivateDu.Bar"
+            "T:ApiSurface.DocumentationSample.PrivateDu.Foo"
+            "T:ApiSurface.DocumentationSample.DuWithInternalConstructors.Bar"
+            "T:ApiSurface.DocumentationSample.DuWithInternalConstructors.Foo"
+            "T:ApiSurface.DocumentationSample.DuWithPrivateConstructors.Bar"
+            "T:ApiSurface.DocumentationSample.DuWithPrivateConstructors.Foo"
+            "T:ApiSurface.DocumentationSample.EnumLikeDu.Bar"
+            "T:ApiSurface.DocumentationSample.EnumLikeDu.Foo"
+            "T:ApiSurface.DocumentationSample.ModuleWithType.DU.Case1"
+            "T:ApiSurface.DocumentationSample.ModuleWithType.DU.Case2"
+            "T:ApiSurface.DocumentationSample.MomentActionsId.MomentActionsIdConstructor"
+            "T:ApiSurface.DocumentationSample.MyDu.AnotherCase"
+            "T:ApiSurface.DocumentationSample.MyDu.Fieldless"
+            "T:ApiSurface.DocumentationSample.MyDu.SomeCase"
+        ]
+        |> Set.ofList
+
+    let allIncludingInternal = Set.union allIncludingInternalNoDuCases duCaseTypes
 
     let publicDocumentedSurface =
         [
