@@ -59,7 +59,7 @@ module Sample =
         ]
         |> Set.ofList
 
-    let allIncludingInternal =
+    let allIncludingInternalNoDuCases =
         [
             "T:<StartupCode$ApiSurface-DocumentationSample>.$.NETStandard\,Version=v2.0.AssemblyAttributes"
             "T:<StartupCode$ApiSurface-DocumentationSample>.$ApiSurface.DocumentationSample.AssemblyInfo"
@@ -165,6 +165,8 @@ module Sample =
             "T:ApiSurface.DocumentationSample.MyDu.SomeCase"
         ]
         |> Set.ofList
+
+    let allIncludingInternal = Set.union allIncludingInternalNoDuCases duCaseTypes
 
     let publicDocumentedSurface =
         [
