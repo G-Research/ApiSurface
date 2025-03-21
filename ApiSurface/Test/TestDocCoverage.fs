@@ -23,7 +23,13 @@ module TestDocCoverage =
             |> String.concat "\n"
             |> failwithf "Unexpectedly received members: %s"
 
-        expectedButAbsent |> shouldBeEmpty
+        // I speculate *wildly* that https://github.com/dotnet/fsharp/pull/17439
+        // caused DU case types to no longer appear on the API surface.
+        // In .NET 9, it's fine to for them not to appear; in .NET 8, it's fine for them
+        // to appear.
+        // Consumers will see this as a breaking change in the library under test when
+        // they move to .NET 9, which is correct.
+        Set.isSubset expectedButAbsent Sample.duCaseTypes |> shouldEqual true
 
     [<Test>]
     let ``Test ofAssemblyXml`` () =
