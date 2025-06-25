@@ -10,6 +10,8 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "ApiSurface.SampleAssembly",
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "ApiSurface.Test", "ApiSurface\Test\ApiSurface.Test.fsproj", "{2A7BE060-01B6-C8F9-6033-BFAAFC84BAF7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiSurface.CSharpExample", "ApiSurface.CSharpExample\ApiSurface.CSharpExample.csproj", "{CF3C7214-2002-4CAE-AAB9-38AA44D1EEE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{2A7BE060-01B6-C8F9-6033-BFAAFC84BAF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A7BE060-01B6-C8F9-6033-BFAAFC84BAF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A7BE060-01B6-C8F9-6033-BFAAFC84BAF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF3C7214-2002-4CAE-AAB9-38AA44D1EEE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF3C7214-2002-4CAE-AAB9-38AA44D1EEE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF3C7214-2002-4CAE-AAB9-38AA44D1EEE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF3C7214-2002-4CAE-AAB9-38AA44D1EEE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
