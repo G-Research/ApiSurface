@@ -128,9 +128,12 @@ module DocCoverage =
                 let isUnion = FSharpType.IsUnion (t, true)
 
                 let typeConstruct =
-                    t.GetCustomAttribute<CompilationMappingAttribute> () |> getSourceConstructFlags
+                    t.GetCustomAttributes<CompilationMappingAttribute> ()
+                    |> Seq.map getSourceConstructFlags
+                    |> List.ofSeq
 
                 t,
+                typeConstruct,
                 t.GetMembers (
                     BindingFlags.Public
                     ||| BindingFlags.NonPublic
@@ -143,7 +146,7 @@ module DocCoverage =
                     &&
 
                     // Exception fields are impossible to document - skip them all
-                    typeConstruct <> SourceConstructFlags.Exception
+                    not (List.contains SourceConstructFlags.Exception typeConstruct)
                     &&
 
                     // Skip code generated members
@@ -176,11 +179,8 @@ module DocCoverage =
                     | _ -> true
                 )
             )
-            |> Seq.collect (fun (t, mis) ->
+            |> Seq.collect (fun (t, typeConstruct, mis) ->
                 let isUnion = FSharpType.IsUnion (t, true)
-
-                let typeConstruct =
-                    t.GetCustomAttribute<CompilationMappingAttribute> () |> getSourceConstructFlags
 
                 // Skip modules which have a corresponding type
                 let optionalTypeDoc =
@@ -191,7 +191,7 @@ module DocCoverage =
                             t.FullName
 
                     if
-                        typeConstruct = SourceConstructFlags.Module
+                        List.contains SourceConstructFlags.Module typeConstruct
                         && typeWithNonGenericNameExists t searchName
                     then
                         []
