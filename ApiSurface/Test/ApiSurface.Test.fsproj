@@ -20,11 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="System.Text.Json" Version="8.0.4" />
-    <PackageReference Include="FsCheck" Version="2.16.6" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
-    <PackageReference Include="FsUnit" Version="6.0.0" />
-    <PackageReference Include="NUnit" Version="4.1.0" />
+    <PackageReference Include="FsCheck" Version="3.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
+    <PackageReference Include="FsUnit" Version="7.1.1" />
+    <PackageReference Include="NUnit" Version="4.3.2" />
     <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="4.2.13" />
     <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
     <PackageReference Include="System.Net.Primitives" Version="4.3.0" />

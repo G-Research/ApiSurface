@@ -3,6 +3,7 @@
 open System.IO
 open System.IO.Abstractions.TestingHelpers
 open ApiSurface
+open FsCheck.FSharp
 open NUnit.Framework
 open FsUnitTyped
 open FsCheck
@@ -125,12 +126,12 @@ module TestVersionFile =
 
     let versionFileGen : Gen<VersionFile> =
         gen {
-            let! major = Arb.generate<int>
+            let! major = ArbMap.defaults |> ArbMap.generate<int>
             let major = abs major
-            let! minor = Arb.generate<int>
+            let! minor = ArbMap.defaults |> ArbMap.generate<int>
             let minor = abs minor
-            let! releaseRefSpec = Arb.generate<NonNull<string> list>
-            let! pathFilters = Arb.generate<NonNull<string> list option>
+            let! releaseRefSpec = ArbMap.defaults |> ArbMap.generate<NonNull<string> list>
+            let! pathFilters = ArbMap.defaults |> ArbMap.generate<NonNull<string> list option>
 
             return
                 {
