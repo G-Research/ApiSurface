@@ -1,5 +1,6 @@
 namespace ApiSurface
 
+open System.IO
 open System.Reflection
 
 /// Represents the public API surface of an assembly.
@@ -46,18 +47,22 @@ module ApiSurface =
     [<CompiledName "AssertIdentical">]
     val assertIdentical : Assembly -> unit
 
-    /// Updates an assembly's SurfaceBaseline.txt file on the disk.
-    /// Expects to find '../<AssemblyName>/SurfaceBaseline.txt' somewhere in
+    /// <summary>Updates an assembly's SurfaceBaseline.txt file on the disk.</summary>
+    /// <remarks>
+    /// Expects to find '../&lt;AssemblyName&gt;/SurfaceBaseline.txt' somewhere in
     /// the directory ancestry tree.
+    /// </remarks>
     [<CompiledName "WriteAssemblyBaseline">]
     val writeAssemblyBaseline : Assembly -> unit
 
-    /// Updates an assembly's SurfaceBaseline.txt file on the disk.
-    /// Expects to find '../<supplied directory>/SurfaceBaseline.txt' somewhere in the directory tree.
+    /// <summary>Updates an assembly's SurfaceBaseline.txt file on the disk.</summary>
+    /// <remarks>
+    /// Expects to find <c>../&lt;supplied directory&gt;/SurfaceBaseline.txt</c> somewhere in the directory tree.
+    /// </remarks>
     [<CompiledName "WriteAssemblyBaselineWithDirectory">]
     val writeAssemblyBaselineWithDirectory : string -> Assembly -> unit
 
     val internal findNewVersion : Version -> baseline : ApiSurface -> target : ApiSurface -> Version
 
-    val internal updateVersionJson :
-        baseline : ApiSurface -> Assembly -> versionFile : System.IO.Abstractions.IFileInfo -> unit
+    val internal updateVersionJson<'fileInfo> :
+        baseline : ApiSurface -> Assembly -> versionFile: 'fileInfo -> openVersionFile : ('fileInfo -> FileMode * FileAccess -> Stream) -> unit

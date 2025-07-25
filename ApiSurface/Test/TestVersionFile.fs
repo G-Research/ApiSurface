@@ -159,7 +159,7 @@ module TestVersionFile =
             |> fun s -> fs.File.WriteAllText (location.FullName, s)
 
             let baseline = ApiSurface [ "something" ; "something else" ]
-            ApiSurface.updateVersionJson baseline typeof<ApiSurface>.Assembly location
+            ApiSurface.updateVersionJson baseline typeof<ApiSurface>.Assembly location _.Open
 
             let output = fs.File.ReadAllText location.FullName
 
