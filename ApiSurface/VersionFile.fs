@@ -40,17 +40,31 @@ module VersionFile =
     /// Find version.json files referenced within this assembly.
     /// Pass e.g. `fs.FileInfo.FromFileName` (from System.IO.Abstractions) or `FileInfo` (from System.IO)
     /// as the `fromFileName` argument.
-    let inline findVersionFiles<^fileInfo when ^fileInfo : (member Exists : bool)> (fromFileName : string -> 'fileInfo) (assembly : Assembly) : 'fileInfo list =
+    let inline findVersionFiles< ^fileInfo when ^fileInfo : (member Exists : bool)>
+        (fromFileName : string -> 'fileInfo)
+        (assembly : Assembly)
+        : 'fileInfo list
+        =
         let filenames = assembly |> Assembly.findProjectFiles (fun _ -> [ "version.json" ])
-        filenames |> List.map fromFileName |> List.filter (fun f -> (^fileInfo : (member Exists : bool) f))
+
+        filenames
+        |> List.map fromFileName
+        |> List.filter (fun f -> (^fileInfo : (member Exists : bool) f))
 
     /// Find version.json files above this assembly, but stopping when we hit a directory with
     /// the given name.
     /// Pass e.g. `fs.FileInfo.FromFileName` (from System.IO.Abstractions) or `FileInfo` (from System.IO)
     /// as the `fromFileName` argument.
-    let inline findVersionFilesWithDirectory<'fileInfo when ^fileInfo : (member Exists : bool)> (fromFileName : string -> 'fileInfo) (dir : string) (assembly : Assembly) : 'fileInfo list =
+    let inline findVersionFilesWithDirectory<'fileInfo when ^fileInfo : (member Exists : bool)>
+        (fromFileName : string -> 'fileInfo)
+        (dir : string)
+        (assembly : Assembly)
+        : 'fileInfo list
+        =
         let filenames =
             assembly
             |> Assembly.findProjectFilesWithDirectory dir (fun _ -> [ "version.json" ])
 
-        filenames |> List.map fromFileName |> List.filter (fun f -> (^fileInfo : (member Exists : bool) f))
+        filenames
+        |> List.map fromFileName
+        |> List.filter (fun f -> (^fileInfo : (member Exists : bool) f))

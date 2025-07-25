@@ -223,10 +223,17 @@ module ApiSurface =
         // If the api was not changed, then GitVersioning will handle the patch version
         | _ -> currentVersion
 
-    let updateVersionJson<'fileInfo> (baseline : ApiSurface) (assembly : Assembly) (versionFile : 'fileInfo) (openVersionFile : 'fileInfo -> FileMode * FileAccess -> Stream) : unit =
+    let updateVersionJson<'fileInfo>
+        (baseline : ApiSurface)
+        (assembly : Assembly)
+        (versionFile : 'fileInfo)
+        (openVersionFile : 'fileInfo -> FileMode * FileAccess -> Stream)
+        : unit
+        =
         let oldVersionFile, currentVersion =
             use versionFile = openVersionFile versionFile (FileMode.Open, FileAccess.Read)
             readCurrentVersion versionFile
+
         printfn "Current version %d.%d" currentVersion.Major currentVersion.Minor
 
         let updatedVersion = findNewVersion currentVersion baseline (ofAssembly assembly)
@@ -284,8 +291,7 @@ module ApiSurface =
     let writeAssemblyBaselineWithDirectory (dir : string) (assembly : Assembly) : unit =
         let possibleBaselineResources = findBaselineResourcesWithDirectory dir assembly
 
-        let versionFiles =
-            VersionFile.findVersionFilesWithDirectory FileInfo dir assembly
+        let versionFiles = VersionFile.findVersionFilesWithDirectory FileInfo dir assembly
 
         writeAssembly (ofAssemblyBaseline assembly) possibleBaselineResources versionFiles assembly
 

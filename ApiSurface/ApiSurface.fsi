@@ -65,4 +65,8 @@ module ApiSurface =
     val internal findNewVersion : Version -> baseline : ApiSurface -> target : ApiSurface -> Version
 
     val internal updateVersionJson<'fileInfo> :
-        baseline : ApiSurface -> Assembly -> versionFile: 'fileInfo -> openVersionFile : ('fileInfo -> FileMode * FileAccess -> Stream) -> unit
+        baseline : ApiSurface ->
+        Assembly ->
+        versionFile : 'fileInfo ->
+        openVersionFile : ('fileInfo -> FileMode * FileAccess -> Stream) ->
+            unit
