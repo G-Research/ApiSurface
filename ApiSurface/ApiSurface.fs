@@ -1,12 +1,11 @@
 namespace ApiSurface
 
 open System
-open System.IO.Abstractions
+open System.IO
 open System.Text.RegularExpressions
 open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
 open System.Reflection
-open System.IO
 
 type ApiSurface = internal | ApiSurface of string list
 
@@ -176,37 +175,33 @@ module ApiSurface =
 
         assembly |> ofAssembly |> toString |> writer.Write
 
-    let private readCurrentVersion (version : IFileInfo) =
-        use stream = version.OpenRead ()
-        use reader = new StreamReader (stream)
+    let private readCurrentVersion (version : Stream) =
+        use reader = new StreamReader (version)
         let versionFile = VersionFile.read reader
 
         let versionParts = versionFile.Version.Split '.'
 
-        try
-            {
-                Major = int versionParts.[0]
-                Minor = int versionParts.[1]
-            }
-        with _ ->
-            // GitVersioning will verify the json file during build, before the test runs, so it's not expected that anyone will see this error.
-            failwithf
-                "Version in the version.json file must be of the form 'x.x' when x represents a whole number; it was %s."
-                versionFile.Version
+        let parsedVersion =
+            try
+                {
+                    Major = int versionParts.[0]
+                    Minor = int versionParts.[1]
+                }
+            with _ ->
+                // GitVersioning will verify the json file during build, before the test runs, so it's not expected that anyone will see this error.
+                failwithf
+                    "Version in the version.json file must be of the form 'x.x' when x represents a whole number; it was %s."
+                    versionFile.Version
 
+        versionFile, parsedVersion
 
-    let private writeUpdatedVersion (version : Version) (versionFile : IFileInfo) =
+    let private writeUpdatedVersion (oldVersionFile : VersionFile) (newVersion : Version) (versionFile : Stream) =
         let updatedFile =
-            use stream = versionFile.OpenRead ()
-            use reader = new StreamReader (stream)
-            let versionFile = VersionFile.read reader
-
-            { versionFile with
-                Version = sprintf "%d.%d" version.Major version.Minor
+            { oldVersionFile with
+                Version = sprintf "%d.%d" newVersion.Major newVersion.Minor
             }
 
-        use writer = versionFile.Open FileMode.Create
-        use writer = new StreamWriter (writer)
+        use writer = new StreamWriter (versionFile)
         updatedFile |> VersionFile.write writer
 
     let internal findNewVersion currentVersion (ApiSurface baseline) (ApiSurface target) =
@@ -228,8 +223,17 @@ module ApiSurface =
         // If the api was not changed, then GitVersioning will handle the patch version
         | _ -> currentVersion
 
-    let updateVersionJson (baseline : ApiSurface) (assembly : Assembly) (versionFile : IFileInfo) : unit =
-        let currentVersion = readCurrentVersion versionFile
+    let updateVersionJson<'fileInfo>
+        (baseline : ApiSurface)
+        (assembly : Assembly)
+        (versionFile : 'fileInfo)
+        (openVersionFile : 'fileInfo -> FileMode * FileAccess -> Stream)
+        : unit
+        =
+        let oldVersionFile, currentVersion =
+            use versionFile = openVersionFile versionFile (FileMode.Open, FileAccess.Read)
+            readCurrentVersion versionFile
+
         printfn "Current version %d.%d" currentVersion.Major currentVersion.Minor
 
         let updatedVersion = findNewVersion currentVersion baseline (ofAssembly assembly)
@@ -239,12 +243,14 @@ module ApiSurface =
         else
             printfn "Updated version to %d.%d" updatedVersion.Major updatedVersion.Minor
 
-        writeUpdatedVersion updatedVersion versionFile
+        do
+            use versionFile = openVersionFile versionFile (FileMode.Truncate, FileAccess.Write)
+            writeUpdatedVersion oldVersionFile updatedVersion versionFile
 
     let writeAssembly
         (baseline : ApiSurface)
         (possibleBaselineResources : string list)
-        (versionFiles : IFileInfo list)
+        (versionFiles : FileInfo list)
         (assembly : Assembly)
         : unit
         =
@@ -275,7 +281,7 @@ module ApiSurface =
         match versionFile with
         | Some versionFile ->
             printfn "Updating version.json file: %s" versionFile.FullName
-            updateVersionJson baseline assembly versionFile
+            updateVersionJson baseline assembly versionFile (fun f (mode, access) -> f.Open (mode, access))
         | None -> ()
 
         printfn "Updating baseline file: %s" baselinePath
@@ -285,13 +291,12 @@ module ApiSurface =
     let writeAssemblyBaselineWithDirectory (dir : string) (assembly : Assembly) : unit =
         let possibleBaselineResources = findBaselineResourcesWithDirectory dir assembly
 
-        let versionFiles =
-            VersionFile.findVersionFilesWithDirectory (FileSystem ()) dir assembly
+        let versionFiles = VersionFile.findVersionFilesWithDirectory FileInfo dir assembly
 
         writeAssembly (ofAssemblyBaseline assembly) possibleBaselineResources versionFiles assembly
 
     [<CompiledName "WriteAssemblyBaseline">]
     let writeAssemblyBaseline (assembly : Assembly) : unit =
         let possibleBaselineResources = findBaselineResources assembly
-        let versionFiles = VersionFile.findVersionFiles (FileSystem ()) assembly
+        let versionFiles = VersionFile.findVersionFiles FileInfo assembly
         writeAssembly (ofAssemblyBaseline assembly) possibleBaselineResources versionFiles assembly
