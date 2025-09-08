@@ -24,6 +24,9 @@ ApiSurface.ApiSurfaceModule.FromAssemblyCustomPrint [static method]: (ApiSurface
 ApiSurface.ApiSurfaceModule.ToString [static method]: ApiSurface.ApiSurface -> string
 ApiSurface.ApiSurfaceModule.WriteAssemblyBaseline [static method]: System.Reflection.Assembly -> unit
 ApiSurface.ApiSurfaceModule.WriteAssemblyBaselineWithDirectory [static method]: string -> System.Reflection.Assembly -> unit
+ApiSurface.Assembly inherit obj
+ApiSurface.Assembly.findProjectFiles [static method]: (System.Reflection.Assembly -> string list) -> System.Reflection.Assembly -> string list
+ApiSurface.Assembly.findProjectFilesWithDirectory [static method]: string -> (System.Reflection.Assembly -> string list) -> System.Reflection.Assembly -> string list
 ApiSurface.DocCoverage inherit obj, implements ApiSurface.DocCoverage System.IEquatable, System.Collections.IStructuralEquatable, ApiSurface.DocCoverage System.IComparable, System.IComparable, System.Collections.IStructuralComparable
 ApiSurface.DocCoverageModule inherit obj
 ApiSurface.DocCoverageModule.AssertFullyDocumented [static method]: System.Reflection.Assembly -> unit
@@ -111,7 +114,7 @@ ApiSurface.VersionFile.PathFilters [property]: [read-only] string list option
 ApiSurface.VersionFile.PublicReleaseRefSpec [property]: [read-only] string list
 ApiSurface.VersionFile.Version [property]: [read-only] string
 ApiSurface.VersionFileModule inherit obj
-ApiSurface.VersionFileModule.findVersionFiles [static method]: System.IO.Abstractions.IFileSystem -> System.Reflection.Assembly -> System.IO.Abstractions.IFileInfo list
-ApiSurface.VersionFileModule.findVersionFilesWithDirectory [static method]: System.IO.Abstractions.IFileSystem -> string -> System.Reflection.Assembly -> System.IO.Abstractions.IFileInfo list
+ApiSurface.VersionFileModule.findVersionFiles [static method]: (string -> 'fileInfo) -> System.Reflection.Assembly -> 'fileInfo list
+ApiSurface.VersionFileModule.findVersionFilesWithDirectory [static method]: (string -> 'fileInfo) -> string -> System.Reflection.Assembly -> 'fileInfo list
 ApiSurface.VersionFileModule.read [static method]: System.IO.StreamReader -> ApiSurface.VersionFile
 ApiSurface.VersionFileModule.write [static method]: System.IO.StreamWriter -> ApiSurface.VersionFile -> unit

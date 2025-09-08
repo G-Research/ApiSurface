@@ -4,11 +4,12 @@ open System
 open System.IO
 open System.Reflection
 
+/// Helper functions for dealing with the Assembly type.
 [<RequireQualifiedAccess>]
-module internal Assembly =
+module Assembly =
 
     /// Attempt to retrieve an embedded resource from an assembly.
-    let tryReadEmbeddedResource (assembly : Assembly) (resourcePath : string) : Stream option =
+    let internal tryReadEmbeddedResource (assembly : Assembly) (resourcePath : string) : Stream option =
         let resourcePath = resourcePath.Replace ("/", ".")
         let assemblyResourceName ns = sprintf "%s.%s" ns resourcePath
 
@@ -26,6 +27,8 @@ module internal Assembly =
         |> Set.add resourcePath
         |> Seq.tryPick (assembly.GetManifestResourceStream >> Option.ofObj)
 
+    /// You are not expected to use this function directly.
+    ///
     /// Finds all 'fileNames' in ancestor directories of the assembly's location, where
     /// we specifically look for the given parentDir.
     let findProjectFilesWithDirectory (parentDir : string) fileNames (assembly : Assembly) =
@@ -56,6 +59,8 @@ module internal Assembly =
         fileNames assembly
         |> List.map (fun f -> Path.Combine (findParentDir parentDir (FileInfo assembly.Location).Directory, f))
 
-    /// Finds all 'fileNames' in ancestor directories of 'assembly'
-    let findProjectFiles fileNames (assembly : Assembly) =
+    /// You are not expected to use this function directly.
+    ///
+    /// Finds all 'fileNames' in ancestor directories of 'assembly'.
+    let findProjectFiles (fileNames : Assembly -> string list) (assembly : Assembly) =
         findProjectFilesWithDirectory (assembly.GetName().Name) fileNames assembly

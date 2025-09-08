@@ -1,10 +1,8 @@
 namespace ApiSurface
 
 open System.IO
-open System.IO.Abstractions
 open System.Text.Json
 open System.Reflection
-open System.Text.Json.Serialization
 
 /// A record representing the layout of a version.json file, e.g. as consumed by NerdBank.GitVersioning.
 type VersionFile =
@@ -40,15 +38,33 @@ module VersionFile =
         JsonSerializer.Serialize (versionFile, writeOptions) |> writer.Write
 
     /// Find version.json files referenced within this assembly.
-    let findVersionFiles (fs : IFileSystem) (assembly : Assembly) : IFileInfo list =
+    /// Pass e.g. `fs.FileInfo.FromFileName` (from System.IO.Abstractions) or `FileInfo` (from System.IO)
+    /// as the `fromFileName` argument.
+    let inline findVersionFiles< ^fileInfo when ^fileInfo : (member Exists : bool)>
+        (fromFileName : string -> 'fileInfo)
+        (assembly : Assembly)
+        : 'fileInfo list
+        =
         let filenames = assembly |> Assembly.findProjectFiles (fun _ -> [ "version.json" ])
-        filenames |> List.filter File.Exists |> List.map fs.FileInfo.FromFileName
+
+        filenames
+        |> List.map fromFileName
+        |> List.filter (fun f -> (^fileInfo : (member Exists : bool) f))
 
     /// Find version.json files above this assembly, but stopping when we hit a directory with
     /// the given name.
-    let findVersionFilesWithDirectory (fs : IFileSystem) (dir : string) (assembly : Assembly) : IFileInfo list =
+    /// Pass e.g. `fs.FileInfo.FromFileName` (from System.IO.Abstractions) or `FileInfo` (from System.IO)
+    /// as the `fromFileName` argument.
+    let inline findVersionFilesWithDirectory<'fileInfo when ^fileInfo : (member Exists : bool)>
+        (fromFileName : string -> 'fileInfo)
+        (dir : string)
+        (assembly : Assembly)
+        : 'fileInfo list
+        =
         let filenames =
             assembly
             |> Assembly.findProjectFilesWithDirectory dir (fun _ -> [ "version.json" ])
 
-        filenames |> List.filter File.Exists |> List.map fs.FileInfo.FromFileName
+        filenames
+        |> List.map fromFileName
+        |> List.filter (fun f -> (^fileInfo : (member Exists : bool) f))
