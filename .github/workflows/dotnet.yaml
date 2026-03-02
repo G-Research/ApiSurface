@@ -94,7 +94,7 @@ jobs:
       - name: Pack
         run: dotnet pack ApiSurface/ApiSurface.fsproj --configuration Release
       - name: Upload NuGet artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: nuget-package
           path: ApiSurface/bin/Release/ApiSurface.*.nupkg
