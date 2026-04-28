@@ -2,14 +2,13 @@
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <NuGetAudit>false</NuGetAudit>
-  </PropertyGroup>
-  <PropertyGroup>
     <IsPublishable>false</IsPublishable>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="RedirectOutput.fs" />
     <Compile Include="Sample.fs" />
     <Compile Include="TestDocCoverage.fs" />
+    <Compile Include="TestDocCoverageCSharp.fs" />
     <Compile Include="TestSemanticVersioning.fs" />
     <Compile Include="TestSurface.fs" />
     <Compile Include="TestSurfaceComparison.fs" />
@@ -31,6 +30,7 @@
     <PackageReference Include="System.Xml.XDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ApiSurface.CSharpExample\ApiSurface.CSharpExample.csproj" />
     <ProjectReference Include="..\..\ApiSurface.DocumentationSample\ApiSurface.DocumentationSample.fsproj" />
     <ProjectReference Include="..\..\ApiSurface\ApiSurface.fsproj" />
     <ProjectReference Include="..\..\ApiSurface.SampleAssembly\ApiSurface.SampleAssembly.fsproj" />
