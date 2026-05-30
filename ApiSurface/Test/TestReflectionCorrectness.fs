@@ -70,10 +70,10 @@ module TestReflectionCorrectness =
 
              literal.SetConstant 42
 
-             typeBuilder.DefineNestedType ("Nested", TypeAttributes.NestedPublic).CreateTypeInfo ()
-             |> ignore
+             let nestedType = typeBuilder.DefineNestedType ("Nested", TypeAttributes.NestedPublic)
+             nestedType.CreateTypeInfo () |> ignore
 
-             typeBuilder.CreateTypeInfo().AsType())
+             typeBuilder.CreateTypeInfo().AsType ())
 
     [<Test>]
     let ``isPublic handles constructors`` () =
