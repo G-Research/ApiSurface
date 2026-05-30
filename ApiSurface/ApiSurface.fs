@@ -30,9 +30,7 @@ module ApiSurface =
 
     /// In the rare case that you have several different baselines depending on what framework you are running under,
     /// you can use a more specific name for your baseline files.
-    let private frameworkBaselineFile =
-        let desc = RuntimeInformation.FrameworkDescription
-
+    let internal frameworkBaselineFileFor (desc : string) =
         if desc.StartsWith (".NET Core", StringComparison.Ordinal) then
             "SurfaceBaseline-NetCore.txt"
         elif desc.StartsWith (".NET Framework", StringComparison.Ordinal) then
@@ -45,6 +43,9 @@ module ApiSurface =
                 sprintf "SurfaceBaseline-Net%s.txt" frameworkNumber.Groups.[1].Value
             else
                 failwithf "Unknown runtime framework: %s" desc
+
+    let private frameworkBaselineFile =
+        RuntimeInformation.FrameworkDescription |> frameworkBaselineFileFor
 
     let surfaces (assembly : Assembly) =
         assembly.GetManifestResourceNames ()

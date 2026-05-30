@@ -31,6 +31,7 @@ module DocCoverage =
            | MemberTypes.Constructor -> let i = memberInfo :?> ConstructorInfo in i.IsPublic
            | MemberTypes.Event ->
                let i = memberInfo :?> EventInfo
+
                (not (isNull i.AddMethod) && i.AddMethod.IsPublic)
                || (not (isNull i.RemoveMethod) && i.RemoveMethod.IsPublic)
            | MemberTypes.Field -> let i = memberInfo :?> FieldInfo in i.IsPublic
@@ -38,6 +39,7 @@ module DocCoverage =
            | MemberTypes.NestedType -> let i = memberInfo :?> Type in i.IsVisible
            | MemberTypes.Property ->
                let i = memberInfo :?> PropertyInfo
+
                (not (isNull i.GetMethod) && i.GetMethod.IsPublic)
                || (not (isNull i.SetMethod) && i.SetMethod.IsPublic)
            | memberType -> failwithf "Unrecognised MemberType: %O" memberType
