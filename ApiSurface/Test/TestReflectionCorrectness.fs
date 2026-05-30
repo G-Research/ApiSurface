@@ -11,58 +11,69 @@ open ApiSurface
 module TestReflectionCorrectness =
 
     let private reflectionFixture =
-        lazy (
-            let assemblyName = AssemblyName "ApiSurface.Test.ReflectionFixture"
+        lazy
+            (let assemblyName = AssemblyName "ApiSurface.Test.ReflectionFixture"
 
-            let assembly =
-                AssemblyBuilder.DefineDynamicAssembly (assemblyName, AssemblyBuilderAccess.Run)
+             let assembly =
+                 AssemblyBuilder.DefineDynamicAssembly (assemblyName, AssemblyBuilderAccess.Run)
 
-            let moduleBuilder = assembly.DefineDynamicModule assemblyName.Name
-            let typeBuilder = moduleBuilder.DefineType ("ReflectionFixture", TypeAttributes.Public)
+             let moduleBuilder = assembly.DefineDynamicModule assemblyName.Name
 
-            typeBuilder.DefineDefaultConstructor MethodAttributes.Public |> ignore
+             let typeBuilder =
+                 moduleBuilder.DefineType ("ReflectionFixture", TypeAttributes.Public)
 
-            let emitReturn (methodBuilder : MethodBuilder) =
-                methodBuilder.GetILGenerator().Emit OpCodes.Ret
+             typeBuilder.DefineDefaultConstructor MethodAttributes.Public |> ignore
 
-            let propertySetter =
-                typeBuilder.DefineMethod (
-                    "set_WriteOnly",
-                    MethodAttributes.Public ||| MethodAttributes.SpecialName ||| MethodAttributes.HideBySig,
-                    typeof<Void>,
-                    [| typeof<int> |]
-                )
+             let emitReturn (methodBuilder : MethodBuilder) =
+                 methodBuilder.GetILGenerator().Emit OpCodes.Ret
 
-            emitReturn propertySetter
+             let propertySetter =
+                 typeBuilder.DefineMethod (
+                     "set_WriteOnly",
+                     MethodAttributes.Public
+                     ||| MethodAttributes.SpecialName
+                     ||| MethodAttributes.HideBySig,
+                     typeof<Void>,
+                     [| typeof<int> |]
+                 )
 
-            let property = typeBuilder.DefineProperty ("WriteOnly", PropertyAttributes.None, typeof<int>, Type.EmptyTypes)
-            property.SetSetMethod propertySetter
+             emitReturn propertySetter
 
-            let eventRemover =
-                typeBuilder.DefineMethod (
-                    "remove_RemoveOnly",
-                    MethodAttributes.Public ||| MethodAttributes.SpecialName ||| MethodAttributes.HideBySig,
-                    typeof<Void>,
-                    [| typeof<EventHandler> |]
-                )
+             let property =
+                 typeBuilder.DefineProperty ("WriteOnly", PropertyAttributes.None, typeof<int>, Type.EmptyTypes)
 
-            emitReturn eventRemover
+             property.SetSetMethod propertySetter
 
-            let event = typeBuilder.DefineEvent ("RemoveOnly", EventAttributes.None, typeof<EventHandler>)
-            event.SetRemoveOnMethod eventRemover
+             let eventRemover =
+                 typeBuilder.DefineMethod (
+                     "remove_RemoveOnly",
+                     MethodAttributes.Public
+                     ||| MethodAttributes.SpecialName
+                     ||| MethodAttributes.HideBySig,
+                     typeof<Void>,
+                     [| typeof<EventHandler> |]
+                 )
 
-            let literal =
-                typeBuilder.DefineField (
-                    "HiddenLiteral",
-                    typeof<int>,
-                    FieldAttributes.Private ||| FieldAttributes.Static ||| FieldAttributes.Literal
-                )
+             emitReturn eventRemover
 
-            literal.SetConstant 42
+             let event =
+                 typeBuilder.DefineEvent ("RemoveOnly", EventAttributes.None, typeof<EventHandler>)
 
-            typeBuilder.DefineNestedType ("Nested", TypeAttributes.NestedPublic).CreateType () |> ignore
-            typeBuilder.CreateType ()
-        )
+             event.SetRemoveOnMethod eventRemover
+
+             let literal =
+                 typeBuilder.DefineField (
+                     "HiddenLiteral",
+                     typeof<int>,
+                     FieldAttributes.Private ||| FieldAttributes.Static ||| FieldAttributes.Literal
+                 )
+
+             literal.SetConstant 42
+
+             typeBuilder.DefineNestedType ("Nested", TypeAttributes.NestedPublic).CreateTypeInfo ()
+             |> ignore
+
+             typeBuilder.CreateTypeInfo().AsType())
 
     [<Test>]
     let ``isPublic handles constructors`` () =
