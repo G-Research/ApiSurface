@@ -42,7 +42,7 @@ module ApiSurface =
             let frameworkNumber = Regex(@"^\.NET ([0-9]+)\.").Match desc
 
             if frameworkNumber.Success then
-                sprintf "SurfaceBaseline-Net%s.txt" frameworkNumber.Groups.[0].Value
+                sprintf "SurfaceBaseline-Net%s.txt" frameworkNumber.Groups.[1].Value
             else
                 failwithf "Unknown runtime framework: %s" desc
 
