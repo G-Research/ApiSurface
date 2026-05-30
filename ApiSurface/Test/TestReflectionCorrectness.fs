@@ -70,7 +70,9 @@ module TestReflectionCorrectness =
 
              literal.SetConstant 42
 
-             let nestedType = typeBuilder.DefineNestedType ("Nested", TypeAttributes.NestedPublic)
+             let nestedType =
+                 typeBuilder.DefineNestedType ("Nested", TypeAttributes.NestedPublic)
+
              nestedType.CreateTypeInfo () |> ignore
 
              typeBuilder.CreateTypeInfo().AsType ())

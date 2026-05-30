@@ -271,7 +271,10 @@ module DocCoverage =
         let publicMembers = publicMembers |> Seq.map (fun (n, c, _) -> n, c) |> Set.ofSeq
 
         let nonPublicMembers =
-            nonPublicMembers |> Seq.map (fun (n, c, _) -> n, c) |> Set.ofSeq
+            nonPublicMembers
+            |> Seq.map (fun (n, c, _) -> n, c)
+            |> Set.ofSeq
+            |> fun members -> Set.difference members publicMembers
 
         DocCoverage (Path.GetFileName assembly.Location, Members.MixedAccess (publicMembers, nonPublicMembers))
 
