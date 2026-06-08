@@ -27,13 +27,21 @@ module DocCoverage =
     let isPublic (memberInfo : MemberInfo) : bool =
         (isNull memberInfo.DeclaringType || memberInfo.DeclaringType.IsVisible)
         && match memberInfo.MemberType with
-           | MemberTypes.Method
-           | MemberTypes.Constructor -> let i = memberInfo :?> MethodInfo in i.IsPublic
-           | MemberTypes.Event -> let i = memberInfo :?> EventInfo in i.AddMethod.IsPublic
+           | MemberTypes.Method -> let i = memberInfo :?> MethodInfo in i.IsPublic
+           | MemberTypes.Constructor -> let i = memberInfo :?> ConstructorInfo in i.IsPublic
+           | MemberTypes.Event ->
+               let i = memberInfo :?> EventInfo
+
+               (not (isNull i.AddMethod) && i.AddMethod.IsPublic)
+               || (not (isNull i.RemoveMethod) && i.RemoveMethod.IsPublic)
            | MemberTypes.Field -> let i = memberInfo :?> FieldInfo in i.IsPublic
            | MemberTypes.TypeInfo
-           | MemberTypes.NestedType -> let i = memberInfo :?> TypeInfo in i.IsPublic
-           | MemberTypes.Property -> let i = memberInfo :?> PropertyInfo in i.GetMethod.IsPublic
+           | MemberTypes.NestedType -> let i = memberInfo :?> Type in i.IsVisible
+           | MemberTypes.Property ->
+               let i = memberInfo :?> PropertyInfo
+
+               (not (isNull i.GetMethod) && i.GetMethod.IsPublic)
+               || (not (isNull i.SetMethod) && i.SetMethod.IsPublic)
            | memberType -> failwithf "Unrecognised MemberType: %O" memberType
 
     let paramInfoToString (pi : ParameterInfo) : string =
@@ -263,7 +271,10 @@ module DocCoverage =
         let publicMembers = publicMembers |> Seq.map (fun (n, c, _) -> n, c) |> Set.ofSeq
 
         let nonPublicMembers =
-            nonPublicMembers |> Seq.map (fun (n, c, _) -> n, c) |> Set.ofSeq
+            nonPublicMembers
+            |> Seq.map (fun (n, c, _) -> n, c)
+            |> Set.ofSeq
+            |> fun members -> Set.difference members publicMembers
 
         DocCoverage (Path.GetFileName assembly.Location, Members.MixedAccess (publicMembers, nonPublicMembers))
 

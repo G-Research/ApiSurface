@@ -9,6 +9,8 @@ type DocCoverage
 [<RequireQualifiedAccess>]
 module DocCoverage =
 
+    val internal isPublic : MemberInfo -> bool
+
     /// Map the exposed types and members of an assembly into a list of
     /// member names expected to be present in the corresponding .XML
     /// documentation file.
