@@ -9,6 +9,7 @@
   <ItemGroup>
     <Compile Include="RedirectOutput.fs" />
     <Compile Include="Sample.fs" />
+    <Compile Include="TestReflectionCorrectness.fs" />
     <Compile Include="TestDocCoverage.fs" />
     <Compile Include="TestSemanticVersioning.fs" />
     <Compile Include="TestSurface.fs" />
