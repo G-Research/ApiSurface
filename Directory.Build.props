@@ -16,7 +16,7 @@
     <OtherFlags>$(OtherFlags) --test:GraphBasedChecking --test:ParallelOptimization --test:ParallelIlxGen --warnaserror-:75 --nowarn:75 --parallelreferenceresolution</OtherFlags>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.10.85" PrivateAssets="all" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.10.91" PrivateAssets="all" />
   </ItemGroup>
   <PropertyGroup Condition="'$(GITHUB_ACTION)' != ''">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
