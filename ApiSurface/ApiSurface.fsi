@@ -16,6 +16,8 @@ type internal Version =
 [<RequireQualifiedAccess>]
 module ApiSurface =
 
+    val internal frameworkBaselineFileFor : string -> string
+
     /// Read the SurfaceBaseline.txt embedded resource from the given assembly.
     [<CompiledName "FromAssemblyBaseline">]
     val ofAssemblyBaseline : Assembly -> ApiSurface

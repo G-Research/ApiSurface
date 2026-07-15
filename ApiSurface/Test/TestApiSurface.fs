@@ -89,3 +89,9 @@ module TestApiSurface =
 
         let expected = Sample.publicSurface |> Set.add "Bar" |> Set.add "Foo"
         actual |> shouldEqual expected
+
+    [<TestCase(".NET Core 3.1.0", "SurfaceBaseline-NetCore.txt")>]
+    [<TestCase(".NET Framework 4.8.0", "SurfaceBaseline-NetFramework.txt")>]
+    [<TestCase(".NET 8.0.0", "SurfaceBaseline-Net8.txt")>]
+    let ``Test framework baseline filename`` desc expected =
+        desc |> ApiSurface.frameworkBaselineFileFor |> shouldEqual expected
