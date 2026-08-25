@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFrameworks>net10.0</TargetFrameworks>
     <NuGetAudit>false</NuGetAudit>
   </PropertyGroup>
   <PropertyGroup>
@@ -19,16 +19,12 @@
     <Compile Include="TestVersionFile.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="System.Text.Json" Version="8.0.4" />
-    <PackageReference Include="FsCheck" Version="3.3.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
+    <PackageReference Include="FsCheck" Version="3.4.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="6.3.0" />
     <PackageReference Include="FsUnit" Version="7.1.1" />
-    <PackageReference Include="NUnit" Version="4.3.2" />
+    <PackageReference Include="NUnit" Version="4.5.0" />
     <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="4.2.13" />
-    <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
-    <PackageReference Include="System.Net.Primitives" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ApiSurface.DocumentationSample\ApiSurface.DocumentationSample.fsproj" />
