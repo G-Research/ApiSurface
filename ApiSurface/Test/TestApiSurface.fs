@@ -44,7 +44,7 @@ module TestApiSurface =
     let ``Test compare for different surfaces (not in baseline)`` () =
 
         let exc =
-            Assert.Throws<exn> (fun () ->
+            Assert.Throws<exn>(fun () ->
                 [ "Bar" ; "Foo" ]
                 |> ApiSurface
                 |> ApiSurface.compare (ApiSurface [ "Foo" ])
@@ -59,7 +59,7 @@ module TestApiSurface =
     let ``Test compare for different surfaces (not in target)`` () =
 
         let exc =
-            Assert.Throws<exn> (fun () ->
+            Assert.Throws<exn>(fun () ->
                 [ "Foo" ]
                 |> ApiSurface
                 |> ApiSurface.compare (ApiSurface [ "Foo" ; "Bar" ])

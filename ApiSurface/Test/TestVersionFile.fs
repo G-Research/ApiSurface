@@ -154,9 +154,7 @@ module TestVersionFile =
             let fs = MockFileSystem ()
             let location = fs.FileInfo.FromFileName "version.json"
 
-            versionFile
-            |> serialise
-            |> fun s -> fs.File.WriteAllText (location.FullName, s)
+            versionFile |> serialise |> fun s -> fs.File.WriteAllText (location.FullName, s)
 
             let baseline = ApiSurface [ "something" ; "something else" ]
             ApiSurface.updateVersionJson baseline typeof<ApiSurface>.Assembly location _.Open

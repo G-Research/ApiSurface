@@ -31,7 +31,7 @@ module VersionFile =
 
     /// Read and parse a stream representing a version file.
     let read (reader : StreamReader) : VersionFile =
-        JsonSerializer.Deserialize<VersionFile> (reader.ReadToEnd (), readOptions)
+        JsonSerializer.Deserialize<VersionFile>(reader.ReadToEnd (), readOptions)
 
     /// Write a version file into a stream.
     let write (writer : StreamWriter) (versionFile : VersionFile) : unit =

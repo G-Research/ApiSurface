@@ -72,7 +72,7 @@ module TestDocCoverage =
             """
 
         let exc =
-            Assert.Throws<exn> (fun () ->
+            Assert.Throws<exn>(fun () ->
                 DocCoverage.ofXml "left.xml" left
                 |> DocCoverage.compare (DocCoverage.ofXml "right.xml" right)
                 |> SurfaceComparison.assertIdentical

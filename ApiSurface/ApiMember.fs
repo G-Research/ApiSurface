@@ -20,7 +20,7 @@ module MemberTypeInfo =
         | Property _ -> MemberTypes.Property
         | Field _ -> MemberTypes.Field
         | Event -> MemberTypes.Event
-        >> fun x -> x.ToString().ToLower ()
+        >> fun x -> x.ToString().ToLower()
 
 type ApiMember =
     {
@@ -103,7 +103,7 @@ module ApiMember =
                     info.GetParameters () |> List.ofArray |> List.map (fun p -> p.ParameterType)
 
                 let argumentCountsAttribute =
-                    info.GetCustomAttribute<CompilationArgumentCountsAttribute> ()
+                    info.GetCustomAttribute<CompilationArgumentCountsAttribute>()
 
                 let counts =
                     if obj.ReferenceEquals (argumentCountsAttribute, null) then
