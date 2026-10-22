@@ -99,7 +99,7 @@ module DocCoverage =
         let types =
             assembly.GetTypes ()
             |> Array.filter (fun ty ->
-                obj.ReferenceEquals (ty.GetCustomAttribute<CompilerGeneratedAttribute> (), null)
+                obj.ReferenceEquals (ty.GetCustomAttribute<CompilerGeneratedAttribute>(), null)
                 // A version of the F# compiler in 7.0.400 emitted some generated types which were not marked
                 // as compiler-generated. Skip those.
                 // https://github.com/dotnet/fsharp/issues/16141
@@ -128,7 +128,7 @@ module DocCoverage =
                 let isUnion = FSharpType.IsUnion (t, true)
 
                 let typeConstruct =
-                    t.GetCustomAttributes<CompilationMappingAttribute> ()
+                    t.GetCustomAttributes<CompilationMappingAttribute>()
                     |> Seq.map getSourceConstructFlags
                     |> List.ofSeq
 
@@ -201,7 +201,7 @@ module DocCoverage =
                 mis
                 |> Seq.collect (fun mi ->
                     let methodConstruct =
-                        mi.GetCustomAttribute<CompilationMappingAttribute> () |> getSourceConstructFlags
+                        mi.GetCustomAttribute<CompilationMappingAttribute>() |> getSourceConstructFlags
 
                     // This might be op_xyz but there's also an op_xyz$W, in which case that $W is
                     // what's actually written to the XML file (but without the $W part in the name)

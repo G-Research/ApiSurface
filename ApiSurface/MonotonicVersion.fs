@@ -93,7 +93,7 @@ module MonotonicVersion =
         let versions =
             repos
             |> Array.Parallel.collect (fun repo ->
-                let metadataResource = repo.GetResource<FindPackageByIdResource> ()
+                let metadataResource = repo.GetResource<FindPackageByIdResource>()
                 use cacheContext = new SourceCacheContext (NoCache = true)
 
                 retry (fun () ->
